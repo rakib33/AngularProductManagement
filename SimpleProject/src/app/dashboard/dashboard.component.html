@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card" style="background-color: #D1E3C9;">
+                    <div class="card-body" style="padding: .75rem;">
+                        <p class="card-text">Total Product</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" style="background-color: #C8E4F2;">
+                    <div class="card-body" style="padding: .75rem;">
+                        <p class="card-text">Total Order</p>
+                      </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" style="background-color: #EED3CA;" >
+                    <div class="card-body" style="padding: .75rem;">
+                      <p class="card-text">Low Stock</p>
+                    </div>  
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                    <div class="card" style="height: 160px;">
+                        <div class="card-header" style="height: 70%; padding: 1.05rem; background-color: #3E9A47;">
+                            <p class="card-text" style="text-align: center; font-size: 3.75rem;">15</p>
+                        </div>
+                        <div class="card-body" style="padding: .75rem;">
+                            <p class="card-text" style="text-align: center;">Friday 15, 2020</p>
+                        </div>
+                    </div>
+
+                    <div (click)="toggleHighlight(1);" [ngStyle]="{'background-color':highlightedDiv === 1 ? 'blue' : 'red' }" class="card" style="height: 160px; margin-top: 1.5rem;">
+                        <div class="card-header" style="height: 70%; padding: 1.05rem; background-color: #1D5180;">
+                            <p class="card-text" style="text-align: center; font-size: 3.75rem;">0</p>
+                        </div>
+                        <div class="card-body" style="padding: .75rem;">
+                            <p class="card-text" style="text-align: center;" id="DateId">$ Total Revenue</p>
+                        </div>
+                    </div>
+            </div>
+            
+            
+            <div class="col-md-8">
+                <full-calendar [options]="calendarOptions"></full-calendar>
+            </div>
+        </div>
+        
+    </div>
+    <div class="col-md-1"></div>
+</div>

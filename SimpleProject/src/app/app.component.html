@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+  
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" >
+        <a routerLink="/dashboard" class="nav-link" href="#">Dashboard<span class="sr-only">(current)</span></a>
+      </li>
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a routerLink="/brand" class="nav-link" href="#">Brand</a>
+      </li>
+      <li  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a routerLink="/category" class="nav-link" href="#">Category</a>
+      </li>
+      <li  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a routerLink="/products" class="nav-link" href="#">Products</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Orders
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="order">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a routerLink="/reports" class="nav-link" href="#" id="navReportsLink">Reports</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSecondMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="navbar-toggler-icon"></span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownSecondMenuLink">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"></a>
+      </li>
+    </ul>
+  </div>
+ 
+</nav>
+<router-outlet></router-outlet>
