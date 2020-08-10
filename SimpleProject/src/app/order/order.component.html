@@ -1,1 +1,75 @@
-<p>order works!</p>
+
+<div class="row mt-4">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div style="background-color: #F1F1F1; height: 35px; padding:.30rem;">
+            <div class="row">
+                <a href="#" style="color: black; padding-left: 20px;">Home</a>
+                <p style="padding-left: 15px;">/</p>
+                <a href="#" style="color: black; padding-left: 20px;" >Order</a>
+                <p style="padding-left: 15px;">/</p>
+                <a href="#" style="color: black; padding-left: 20px;" >Add Order</a>
+                
+            </div> 
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+<div class="row mt-4">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        Add Order
+        <div style="border-style:solid; border-width: .2rem; border-color: #F1F1F1;">
+            <form>
+                <div style="background-color: #F1F1F1; height: 30px;">
+                    Add Order
+                </div>
+                <div class="row" style="padding-top: 10px; padding-left: 10px; padding-right: 10px;">
+                    <div class="col-md-3">
+                        <div class="form-group" style="float: right; padding-top: .35rem;">
+                            <label for="inputOrderDate">Order Date</label>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="date" class="form-control" id="inputOrderDate">
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style=" padding-left: 10px; padding-right: 10px;">
+                    <div class="col-md-3">
+                        <div class="form-group" style="float: right; padding-top: .35rem;">
+                            <label for="inputClientName">Client Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="inputClientName">
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style=" padding-left: 10px; padding-right: 10px;">
+                    <div class="col-md-3">
+                        <div class="form-group" style="float: right; padding-top: .35rem;">
+                            <label for="inputClientContact">Client Contact</label>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="inputClientContact">
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="form-group form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button> -->
+            </form>
+        </div>
+        
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<router-outlet></router-outlet>

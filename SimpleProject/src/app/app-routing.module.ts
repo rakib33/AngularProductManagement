@@ -6,6 +6,7 @@ import { CategoryComponent } from './category/category.component';
 import { OrderComponent } from './order/order.component';
 import { ProductsComponent } from './products/products.component';
 import { ReportsComponent } from './reports/reports.component';
+import { AddOrderComponent } from './order/add-order/add-order.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'/dashboard',pathMatch:'full'},
@@ -13,7 +14,11 @@ const routes: Routes = [
   {path:'brand',component:BrandComponent},
   {path:'category',component:CategoryComponent},
   {path:'products',component:ProductsComponent},
-  {path:'order',component:OrderComponent},
+  {path:'order',component:OrderComponent,
+     children:[
+       {path:'add-order',component:AddOrderComponent}
+     ]
+  },
   {path:'reports',component:ReportsComponent}
   
 ];

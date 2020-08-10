@@ -1,0 +1,28 @@
+<form [formGroup]="carForm" >
+    <div formArrayName="details" class="form-group" *ngFor="let field of carForm.controls; let ind = index;">
+        <div [formGroupName]="ind">
+            Type:
+            <input class="form-control" type="text" formControlName="type">
+
+            model:
+            <input class="form-control" type="text" formControlName="model">
+
+            year:
+            <input class="form-control" type="text" formControlName="year">
+
+            make:
+            <input class="form-control" type="text" formControlName="make">
+
+            color
+            <input class="form-control" type="text" formControlName="color">
+
+            plateNumber
+            <input class="form-control" type="text" formControlName="plateNumber">
+
+            <hr>
+        </div>
+    </div>
+</form>
+
+<button (click)="addRow()">Add New</button>
+

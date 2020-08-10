@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DataTablesModule } from 'angular-datatables';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +15,7 @@ import { CategoryComponent } from './category/category.component';
 import { ProductsComponent } from './products/products.component';
 import { OrderComponent } from './order/order.component';
 import { ReportsComponent } from './reports/reports.component';
+import { AddOrderComponent } from './order/add-order/add-order.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -27,12 +31,17 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     CategoryComponent,
     ProductsComponent,
     OrderComponent,
-    ReportsComponent
+    ReportsComponent,
+    AddOrderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FullCalendarModule // register FullCalendar with you app
+    FullCalendarModule, // register FullCalendar with you app
+    FormsModule,
+    ReactiveFormsModule,
+    DataTablesModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
