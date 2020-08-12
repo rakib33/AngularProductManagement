@@ -23,6 +23,7 @@
     "@fullcalendar/daygrid": "^5.2.0",
     "@fullcalendar/interaction": "^5.2.0",
     "angular-calendar": "^0.28.16",
+    "angular-datatable": "^2.2.1",
     "angular-datatables": "^9.0.2",
     "datatables.net": "^1.10.21",
     "datatables.net-dt": "^1.10.21",

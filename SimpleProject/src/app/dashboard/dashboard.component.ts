@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 //import { CalendarOptions } from '@fullcalendar/angular'; // useful for typechecking
 import { FullCalendarComponent, CalendarOptions } from '@fullcalendar/angular';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { globalConstant } from '../../Model/appVariable';
+import { Dashboard } from '../../Model/Dashboard';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,8 +13,12 @@ import { FullCalendarComponent, CalendarOptions } from '@fullcalendar/angular';
   ]
 })
 export class DashboardComponent implements OnInit {
-
-  constructor() { }
+  dashBoard = {};
+  CurrentDate = Date.now();
+  DashBoardAPI = globalConstant.BaseUrl + 'KiniApi/GetDashBoardData';
+  constructor(private http: HttpClient) { 
+    this.dashBoard = new Dashboard();
+  }
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
@@ -24,7 +32,9 @@ export class DashboardComponent implements OnInit {
   handleDateClick(arg) {
     console.log(arg.dateStr);
     //alert('date click! ' + arg.dateStr)
-    document.getElementById('DateId').innerHTML = arg.dateStr;
+    this.CurrentDate = arg.dateStr
+    //document.getElementById('DateId').innerHTML = arg.dateStr;
+     this.GetDashboardData(this.CurrentDate);
   }
 
   highlightedDiv: number;
@@ -42,5 +52,26 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
       
   }
-  
+
+  GetDashboardData(selectedDate)  {
+     //const headers = { 'Authorization': 'Bearer my-token', 'My-Custom-Header': 'foobar' }
+     const body = { selectedDate: selectedDate }
+     //const body=JSON.stringify(person);
+    //  //HttpContext.Response.AppendHeader("Access-Control-Allow-Origin", "*");
+    //  const headers = new HttpHeaders()
+    //  .append('Content-Type', 'application/json')
+    //  .append('Access-Control-Allow-Headers', 'Content-Type')
+    //  .append('Access-Control-Allow-Methods', 'GET')
+    //  .append('Access-Control-Allow-Origin', '*');
+     const headers = {'Content-Type':'application/json', 'Access-Control-Allow-Origin': '*' }
+     this.http.post<Dashboard>(this.DashBoardAPI, body,{headers}).subscribe(data => {
+       this.dashBoard = data;
+    })
+        
+    console.log(this.dashBoard);
+    // this.http.post<any>('https://jsonplaceholder.typicode.com/posts', body, { headers }).subscribe(data => {
+    //   this.postId = data.id;
+    //  })
+  }
+ 
 }
