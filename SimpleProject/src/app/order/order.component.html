@@ -1,75 +1,183 @@
 
-<div class="row mt-4">
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
-        <div style="background-color: #F1F1F1; height: 35px; padding:.30rem;">
-            <div class="row">
-                <a routerLink="/dashboard" href="#" style="color: black; padding-left: 20px;">Home</a>
-                <p style="padding-left: 15px;">/</p>
-                <a style="color: black; padding-left: 20px;" >Order</a>
-                <p style="padding-left: 15px;">/</p>
-                <a href="order/add-order" style="color: black; padding-left: 20px;" >Add Order</a>
-                
-            </div> 
-        </div>
+<div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div style="background-color: #F1F1F1; height: 35px; padding:.30rem;">
+                <div class="row">
+                    <a routerLink="/dashboard" href="#" style="color: black; padding-left: 20px;">Home</a>
+                    <p style="padding-left: 15px;">/</p>
+                    <a style="color: black; padding-left: 20px;" >Order</a>
+                    <p style="padding-left: 15px;">/</p>
+                    <a href="order/add-order" style="color: black; padding-left: 20px;" >Add Order</a>
+                    
+                </div> 
+            </div>
+        </div>       
     </div>
-    <div class="col-md-1"></div>
-</div>
-<div class="row mt-4">
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
-        Add Order
-        <div style="border-style:solid; border-width: .2rem; border-color: #F1F1F1;">
-            <form>
-                <div style="background-color: #F1F1F1; height: 30px;">
-                    Add Order
-                </div>
-                <div class="row" style="padding-top: 10px; padding-left: 10px; padding-right: 10px;">
-                    <div class="col-md-3">
-                        <div class="form-group" style="float: right; padding-top: .35rem;">
-                            <label for="inputOrderDate">Order Date</label>
-                        </div>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <input type="date" class="form-control" id="inputOrderDate">
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style=" padding-left: 10px; padding-right: 10px;">
-                    <div class="col-md-3">
-                        <div class="form-group" style="float: right; padding-top: .35rem;">
-                            <label for="inputClientName">Client Name</label>
-                        </div>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="inputClientName">
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style=" padding-left: 10px; padding-right: 10px;">
-                    <div class="col-md-3">
-                        <div class="form-group" style="float: right; padding-top: .35rem;">
-                            <label for="inputClientContact">Client Contact</label>
-                        </div>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="inputClientContact">
-                        </div>
-                    </div>
-                </div>
-                <!--<div class="form-group form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button> -->
-            </form>
-        </div>
-        
-    </div>
-    <div class="col-md-1"></div>
-</div>
 
-<router-outlet></router-outlet>
+    <div class="row mt-4">
+        <form style="width: 100%;" [formGroup]="nestedForm" (ngSubmit)="submitHandler()"> 
+          <div class="row">                     
+            <div class="col-md-12">
+               <div style="border-style:solid; border-width: .2rem; border-color: #F1F1F1;">                  
+                        <div style="background-color: #F1F1F1; height: 30px;">
+                            Add Order
+                        </div>
+                        <!-- Order Date/Invoice Date -->
+                        <div class="row" style="padding-top: 10px; padding-left: 10px; padding-right: 10px;">
+                            <div class="col-md-3">
+                                <div class="form-group" style="float: right; padding-top: .35rem;">
+                                    <label for="InvoiceDate">Order Date</label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input type="date" formControlName="InvoiceDate" class="form-control" id="InvoiceDate">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Client Name/Customer Name -->
+                        <div class="row" style=" padding-left: 10px; padding-right: 10px;">
+                            <div class="col-md-3">
+                                <div class="form-group" style="float: right; padding-top: .35rem;">
+                                    <label for="CustomerName">Client Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input type="text" formControlName="CustomerName" class="form-control" id="CustomerName">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Client Phone No -->
+                        <div class="row" style=" padding-left: 10px; padding-right: 10px;">
+                            <div class="col-md-3">
+                                <div class="form-group" style="float: right; padding-top: .35rem;">
+                                    <label for="Phone">Client Contact</label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input formControlName="Phone" type="text" class="form-control" id="Phone">
+                                </div>
+                            </div>
+                        </div>    
+                        <!-- Supplier Name from DropDown,Backend Id will Save  -->
+                        <div class="row" style=" padding-left: 10px; padding-right: 10px;">
+                            <div class="col-md-3">
+                                <div class="form-group" style="float: right; padding-top: .35rem;">
+                                    <label for="Customer_Id">Suppilier Contact</label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input formControlName="Customer_Id" type="text" class="form-control" id="Customer_Id">
+                                </div>
+                            </div>
+                        </div>        
+                        
+                          <!-- Invoice No   -->
+                          <!-- <div class="row" style=" padding-left: 10px; padding-right: 10px;">
+                            <div class="col-md-3">
+                                <div class="form-group" style="float: right; padding-top: .35rem;">
+                                    <label for="inputClientContact">Suppilier Contact</label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input formControlName="Customer_Id" type="text" class="form-control" id="inputClientContact">
+                                </div>
+                            </div>
+                        </div>         -->
+              
+                </div>    
+            </div>   
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+             <hr>
+             <button (click)="addAddress()">Add</button>
+            </div>
+          </div>
+<!-- form array nested Element -->
+<div class="row" formArrayName="Purchase">
+    <div class="col-md-12" *ngFor="let group of addPurchaseArray.controls; let i = index;" [formGroupName]="i">
+      <div class="row">
+          <div class="col-md-1">{{i}}</div>
+       <div class="col-3">
+        <input type="text" formControlName="Product_Id" class="form-control" id="Product_Id">
+       </div>
+       <div class="col-3"><input type="text" formControlName="BuyRate" class="form-control" id="BuyRate"></div>
+       <div class="col-2"><input type="text" formControlName="Qty" class="form-control" id="Qty"></div>
+       <div class="col-2"><input type="text" formControlName="BuyTotal" class="form-control" id="BuyTotal"></div>
+       <div class="col-1">
+           <button (click)="removeAddress(i)">Remove</button>
+       </div>
+      </div>
+    </div>
+  </div>
+  <p>
+    <button type="submit">Submit</button>
+  </p>
+</form>
+</div>
+  
+<!-- <router-outlet></router-outlet> -->
+
+<!-- <h1>{{title}}</h1>
+ 
+<form [formGroup]="empForm" (ngSubmit)="onSubmit()">
+ 
+  <div formArrayName="employees">
+ 
+    <div *ngFor="let employee of employees().controls; let empIndex=index">
+ 
+      <div [formGroupName]="empIndex" style="border: 1px solid blue; padding: 10px; width: 600px; margin: 5px;">
+        {{empIndex}}
+        First Name :
+        <input type="text" formControlName="firstName">
+        Last Name:
+        <input type="text" formControlName="lastName">
+ 
+        <button (click)="removeEmployee(empIndex)">Remove</button>
+ 
+ 
+        <div formArrayName="skills">
+ 
+          <div *ngFor="let skill of employeeSkills(empIndex).controls; let skillIndex=index">
+ 
+ 
+ 
+            <div [formGroupName]="skillIndex">
+              {{skillIndex}}
+              Skill :
+              <input type="text" formControlName="skill">
+              Exp:
+              <input type="text" formControlName="exp">
+ 
+              <button (click)="removeEmployeeSkill(empIndex,skillIndex)">Remove</button>
+ 
+            </div>
+ 
+          </div>
+          <button type="button" (click)="addEmployeeSkill(empIndex)">Add Skill</button>
+        </div>
+ 
+ 
+      </div>
+ 
+    </div>
+  </div>
+ 
+  <p>
+    <button type="submit">Submit</button>
+  </p>
+ 
+</form>
+ 
+ 
+<p>
+  <button type="button" (click)="addEmployee()">Add Employee</button>
+</p> 
+ 
+{{this.empForm.value | json}}  -->

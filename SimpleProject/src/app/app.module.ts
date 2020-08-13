@@ -16,6 +16,8 @@ import { ProductsComponent } from './products/products.component';
 import { OrderComponent } from './order/order.component';
 import { ReportsComponent } from './reports/reports.component';
 import { AddOrderComponent } from './order/add-order/add-order.component';
+import { NestedFormsComponent} from './nestedForms/nested-child.component';
+import { from } from 'rxjs';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -32,7 +34,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ProductsComponent,
     OrderComponent,
     ReportsComponent,
-    AddOrderComponent
+    AddOrderComponent,
+    NestedFormsComponent
   ],
   imports: [
     BrowserModule,
