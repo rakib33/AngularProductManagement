@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A539FD1D-42E5-4FF7-AE85-CC0245A57F3F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SM.NgDataCrud.Web</RootNamespace>
+    <AssemblyName>SM.NgDataCrud.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <TypeScriptToolsVersion>3.8</TypeScriptToolsVersion>
+    <Use64BitIISExpress />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClientApp\src\app\Home\app.component.css" />
+    <Content Include="ClientApp\src\app\Home\app.component.html" />
+    <Content Include="ClientApp\src\app\Home\side-menu.component.css" />
+    <Content Include="ClientApp\src\app\Home\side-menu.component.html" />
+    <Content Include="ClientApp\src\app\NgExDialog\assets\css\ex-dialog.css" />
+    <Content Include="ClientApp\src\app\NgExDialog\assets\images\dialog-icons.png" />
+    <Content Include="ClientApp\src\app\NgExDialog\assets\images\question-icon.png" />
+    <Content Include="ClientApp\src\app\NgExDialog\basic-dialog.component.css" />
+    <Content Include="ClientApp\src\app\NgExDialog\basic-dialog.component.html" />
+    <Content Include="ClientApp\src\app\NgExDialog\dialog-main.component.html" />
+    <Content Include="ClientApp\src\app\NgExTable\pagination.component.html" />
+    <Content Include="ClientApp\src\app\ngxMyDatePicker\ngx-my-date-picker.component.css" />
+    <Content Include="ClientApp\src\app\ngxMyDatePicker\ngx-my-date-picker.component.html" />
+    <Content Include="ClientApp\src\app\PageContents\contacts.component.html" />
+    <Content Include="ClientApp\src\app\PageContents\product-list.component.html" />
+    <Content Include="ClientApp\src\app\PageContents\product.component.html" />
+    <Content Include="ClientApp\src\app\PageContents\search.component.html" />
+    <Content Include="ClientApp\src\assets\images\animatedCircle.gif" />
+    <Content Include="ClientApp\src\assets\images\animatedEllipse.gif" />
+    <Content Include="ClientApp\src\assets\images\indicator.white.gif" />
+    <Content Include="ClientApp\src\assets\images\loader-indicator.gif" />
+    <Content Include="ClientApp\src\assets\images\spacer.gif" />
+    <Content Include="ClientApp\src\assets\images\spinner3-greenie.gif" />
+    <Content Include="ClientApp\src\assets\site.css" />
+    <Content Include="ClientApp\src\favicon.ico" />
+    <Content Include="ClientApp\src\index.html" />
+    <Content Include="ClientApp\src\styles.css" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClientApp\.editorconfig" />
+    <Content Include="ClientApp\angular.json" />
+    <Content Include="ClientApp\package.json" />
+    <Content Include="ClientApp\src\assets\.gitkeep" />
+    <Content Include="ClientApp\src\browserslist" />
+    <Content Include="ClientApp\src\tsconfig.app.json" />
+    <Content Include="ClientApp\src\tslint.json" />
+    <Content Include="ClientApp\tsconfig.json" />
+    <Content Include="ClientApp\tslint.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\Home\ajax-loader.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Home\app.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Home\app.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Home\app.routes.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Home\side-menu.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\InputValidator\reactive-validator.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\InputValidator\template-validator.directive.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\InputValidator\validate-error.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\InputValidator\validator-common.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExDialog\basic-dialog.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExDialog\dialog-cache.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExDialog\dialog-config.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExDialog\dialog-host.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExDialog\dialog-icon.directive.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExDialog\dialog-main.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExDialog\dialog.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExDialog\dialog.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExDialog\dialog.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExDialog\draggable.directive.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExDialog\ex-dialog.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExDialog\focus-blur.directive.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExDialog\vertical-center.directive.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExTable\client-pagination.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExTable\constants.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExTable\model-interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExTable\ngex-table-module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExTable\ngex-table.config.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExTable\pagination.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExTable\table-main.directive.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\NgExTable\table-sorting.directive.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\directives\ngx-my-date-picker.focus.directive.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\enums\cal-toggle.enum.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\enums\index.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\enums\key-code.enum.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\enums\month-id.enum.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\enums\year.enum.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\index.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-calendar-day.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-calendar-month.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-calendar-view-changed.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-calendar-year.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-date-format.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-date-model.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-date-range.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-date.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-day-labels.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-default-month.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-input-field-changed.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-locale.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-marked-date.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-marked-dates.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-month-labels.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-month.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-options.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-selector-pos.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-week.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\interfaces\my-weekday.interface.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\ngx-my-date-picker.component.spec.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\ngx-my-date-picker.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\ngx-my-date-picker.input.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\ngx-my-date-picker.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\services\ngx-my-date-picker.config.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\ngxMyDatePicker\services\ngx-my-date-picker.util.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\PageContents\contacts.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\PageContents\product-list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\PageContents\product.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\PageContents\search.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\app.config.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\dirty-warning.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\globals.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\http-client-intercetor.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\http-data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\local-data.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\message.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\environments\environment.prod.ts" />
+    <TypeScriptCompile Include="ClientApp\src\environments\environment.ts" />
+    <TypeScriptCompile Include="ClientApp\src\main.ts" />
+    <TypeScriptCompile Include="ClientApp\src\polyfills.ts" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v14.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>16133</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:4886/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

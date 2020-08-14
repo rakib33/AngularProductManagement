@@ -1,0 +1,16 @@
+.top-padding-line-sm {
+    padding-top: 0.5rem;
+}
+
+.button-padding {
+    padding-top: 0.33em;
+    padding-bottom: 1.25em
+}
+
+.space-before-button {
+    margin-left: 1.5rem;
+}
+
+.for-link a:hover {
+    color: #337ab7;
+}

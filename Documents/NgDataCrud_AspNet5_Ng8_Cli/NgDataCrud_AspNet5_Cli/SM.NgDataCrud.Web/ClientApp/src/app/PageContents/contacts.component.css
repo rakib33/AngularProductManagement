@@ -1,0 +1,21 @@
+.space-before-button {
+    margin-left: 1.5rem;
+}
+
+.space-top-button {
+    margin-top: 0.75rem;
+}
+
+.padding-top-line {
+    padding-top: 0.75rem;
+}
+
+.button-div {
+    padding-top: 0.75rem; 
+    padding-right: 1.5rem; 
+    float:right;
+}
+
+.field-width-less {
+    width: 90%;
+}

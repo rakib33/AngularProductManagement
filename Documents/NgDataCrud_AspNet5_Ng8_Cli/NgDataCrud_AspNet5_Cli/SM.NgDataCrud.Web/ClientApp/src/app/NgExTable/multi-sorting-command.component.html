@@ -1,0 +1,7 @@
+﻿<div class="sort-box" [class.opened]="showMultiSortPanel">
+    <span class="sort-box-label">Multiple Column Sorting</span>
+    <button type="button" class="btn btn-primary" id="btnSort" (click)="sortOk()">&#160;&#160;OK&#160;&#160;</button>&#160;&#160;
+    <button type="button" class="btn btn-secondary" id="btnCancelSort" (click)="cancel()">&#160;&#160;Cancel&#160;&#160;</button>&#160;&#160;
+    <button type="button" class="btn btn-secondary" id="btnClearSort" (click)="clear()">Clear Sortings</button>&#160;&#160;
+    <button *ngIf="tableMainDirective.sortingRunMode == 1 && tableMainDirective.sortingTypeSwitch == 1" type="button" class="btn btn-secondary" id="btnSwitchToSingle" (click)="toSingleColumnSorting()">Go to Single Column Sorting</button>
+</div>

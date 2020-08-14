@@ -1,0 +1,1 @@
+E:\0.RiProject\AngularProductManagement\Documents\NgDataCrud_AspNet5_Ng8_Cli\NgDataCrud_AspNet5_Cli\SM.NgDataCrud.Web\obj\Debug\SM.NgDataCrud.Web.csprojAssemblyReference.cache

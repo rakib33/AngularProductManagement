@@ -1,0 +1,50 @@
+<div style="margin-left: 15px;">
+    <div *ngIf="errorMsg != ''" class="error-message">{{errorMsg}}</div>
+    <search *ngIf="searchEnabled" 
+           [searchType] = "searchType"
+           (searchChanged)="onChangeSearch($event)">
+    </search>
+    <div [ngClass]="{'hide': !showProductList }" class="top-padding-line-sm">
+        <table class="table table-condensed table-striped bottom-border" 
+               [table-main]="pagingParams" (tableChanged)="onChangeTable($event)">
+            <thead>
+                <tr class="table-header-tr">
+                    <th class="text-center">
+                        <input type="checkbox" [(ngModel)]="checkboxes.topChecked"
+                               [disabled]="checkboxes.topDisabled"
+                               (ngModelChange)="topCheckboxChange()" value="" />
+                    </th>
+                    <th>Product Name<column-sort sortBy="ProductName"></column-sort></th>
+                    <th>Category ID<column-sort sortBy="CategoryId"></column-sort></th>
+                    <th>Category Name<column-sort sortBy="CategoryName"></column-sort></th>
+                    <th>Unit Price<column-sort sortBy="UnitPrice"></column-sort></th>
+                    <th>Status<column-sort sortBy="StatusDescription"></column-sort></th>
+                    <th>Available Since<column-sort sortBy="AvailableSince"></column-sort></th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr *ngFor="let item of model.productList; let idx = index" >
+                    <td class="text-center">
+                        <input type="checkbox" [(ngModel)]="checkboxes.items[idx]" (ngModelChange)="listCheckboxChange(idx)" />
+                    </td>                    
+                    <td class="for-link"><a (click)="openProductForm(item.ProductId)" class="cursor-pointer">{{item.ProductName}}</a></td>
+                    <td class="text-center">{{item.CategoryId}}</td>
+                    <td>{{item.CategoryName}}</td>
+                    <td>{{item.UnitPrice | currency:"USD":"symbol":"1.2-2"}}</td>
+                    <td>{{item.StatusDescription}}</td>
+                    <td>{{item.AvailableSince | date:"MM/dd/yyyy"}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <pagination *ngIf="pagingEnabled"
+                    [pagingParams]="pagingParams"                    
+                    [pagedLength]="pagedLength"
+                    (pageChanged)="onChangeTable($event)">
+        </pagination>
+        <div class="button-padding">
+            <!--<button type="button" class="btn btn-success" id="btnAddProduct" ng-disabled="model.hasEditItemChecked" ng-click="openProductForm()">&#160;Add Product&#160;</button>-->
+            <button type="button" class="btn btn-success" id="btnAddProduct" (click)="openProductForm()">&#160;Add Product&#160;</button>
+            <button type="button" class="btn btn-success space-before-button" [disabled]="!model.hasEditItemChecked" id="btnDeleteProducts" (click)="deleteSelectedProducts()">&#160;Delete Products&#160;</button>
+        </div>  
+    </div>
+</div>

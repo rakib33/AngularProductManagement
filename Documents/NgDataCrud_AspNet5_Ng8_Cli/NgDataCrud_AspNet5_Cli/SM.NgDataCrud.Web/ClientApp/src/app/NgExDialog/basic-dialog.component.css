@@ -1,0 +1,51 @@
+
+.dialog-icon-info
+{
+    width: 32px;
+    height: 30px;
+    margin-right: 10px;
+    background:url('assets/images/dialog-icons.png') no-repeat -4.5px 0px; 
+    /*background-color: red;*/
+}
+.dialog-icon-warning {
+    width: 32px;
+    height: 27px;
+    margin-right: 10px;
+    background: url('assets/images/dialog-icons.png') no-repeat -36px 0px;
+}
+.dialog-icon-error {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    background: url('assets/images/dialog-icons.png') no-repeat -4.5px -31px;
+}
+.dialog-icon-question {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    background: url('assets/images/question-icon.png') no-repeat;
+}
+
+.border-to-dialog {
+    border: #c5c5c5 1px solid;
+    border-radius: 0.33rem;
+}
+
+.my-dialog-header {
+    background-color: #e1f0f0;
+    border-bottom: 1px solid #c5c5c5;
+    border-top-left-radius: 0.33px;
+    border-top-right-radius: 0.33px;
+}
+
+.my-dialog-body {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.my-dialog-footer {
+    background-color: #e1f0f0;
+    border-top: 1px solid #c5c5c5;
+    border-bottom-left-radius: 0.33rem;
+    border-bottom-right-radius: 0.33rem;
+}

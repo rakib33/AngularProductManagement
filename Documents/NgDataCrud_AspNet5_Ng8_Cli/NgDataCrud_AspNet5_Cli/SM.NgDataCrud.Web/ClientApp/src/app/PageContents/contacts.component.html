@@ -1,0 +1,123 @@
+﻿<div class="container"> 
+    <h3 [ngPlural]="labelType">
+        <ng-template ngPluralCase="=0">No contact item</ng-template>
+        <ng-template ngPluralCase="=1">Contact List (total 1 contact)</ng-template>
+        <ng-template ngPluralCase="other">Contact List (total {{displayCount()}} contacts)</ng-template>
+    </h3> 
+    <form [formGroup]="contactForm" novalidate >
+        <div id="message" class="error-message ng-with-newlines">{{errorMessage}}</div>
+        <div *ngIf="showContactList" class="padding-top-line" formArrayName="contactFmArr">
+            <div>
+                <table class="table table-striped table-hover table-condensed bottom-border">
+                    <thead>
+                        <tr>
+                            <th class="text-center">
+                                <input type="checkbox" [(ngModel)]="checkboxes.topChecked" [ngModelOptions]="{standalone: true}" 
+                                       (change)="topCheckboxChange()" value="" />
+                            </th>
+                            <th class="text-left">Contact Name <span class="field-required">*</span></th>
+                            <th class="text-left">Phone <span class="field-required">*</span></th>
+                            <th class="text-left">Email <span class="field-required">*</span></th>
+                            <th class="text-left">Primary Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr [formGroupName]="$index" *ngFor="let item of contactControlList; let $index = index">
+                            <td width="10%" class="text-center">
+                                <input type="checkbox" id="rowCheckBox_{{$index}}" 
+                                       [(ngModel)]="checkboxes.items[$index]" [ngModelOptions]="{standalone: true}"
+                                       (change)="listCheckboxChange($index)" />
+                            </td>
+                            <td width="25%" align="left">
+                                <span *ngIf="!checkboxes.items[$index]" class="control-color">{{contactControlList[$index].value.ContactName}}</span>
+                                <div *ngIf="checkboxes.items[$index]"  
+                                     [ngClass]="{'has-warning' : contactControlList[$index].controls.ContactName.dirty, 
+                                        'has-error': contactControlList[$index].controls.ContactName.touched && 
+                                         contactControlList[$index].controls.ContactName.invalid}">
+                                    <input type="text" class="form-control field-width-less"                                           
+                                           id="contactName_{{$index}}" 
+                                           formControlName="ContactName"/>
+                                    <errors [control]="contactControlList[$index].controls.ContactName"></errors>
+                                </div>
+                            </td>
+                            <td width="20%" align="left">
+                                <span *ngIf="!checkboxes.items[$index]" class="control-color">{{contactControlList[$index].value.Phone}}</span>
+                                <div *ngIf="checkboxes.items[$index]"
+                                     [ngClass]="{'has-warning' : contactControlList[$index].controls.Phone.dirty,
+                                        'has-error': contactControlList[$index].controls.Phone.touched &&
+                                         contactControlList[$index].controls.Phone.invalid}">
+                                    <input type="text" class="form-control field-width-less"
+                                           id="phone_{{$index}}"
+                                           formControlName="Phone"
+                                           (focus)="setShowInvalid(contactControlList[$index].controls.Phone, 0)" 
+                                           (blur)="setShowInvalid(contactControlList[$index].controls.Phone, 1)"/>
+                                    <errors [control]="contactControlList[$index].controls.Phone"></errors>
+                                </div>
+                            </td>
+                            <td width="25%" align="left">
+                                <span *ngIf="!checkboxes.items[$index]" class="control-color">{{contactControlList[$index].value.Email}}</span>
+                                <div *ngIf="checkboxes.items[$index]"
+                                     [ngClass]="{'has-warning' : contactControlList[$index].controls.Email.dirty,
+                                        'has-error': contactControlList[$index].controls.Email.touched &&
+                                         contactControlList[$index].controls.Email.invalid}">
+                                    <input type="text"
+                                           class="form-control field-width-less" 
+                                           id="email_{{$index}}"
+                                           formControlName="Email"
+                                           (focus)="setShowInvalid(contactControlList[$index].controls.Email, 0)" 
+                                           (blur)="setShowInvalid(contactControlList[$index].controls.Email, 1)"/>
+                                    <errors [control]="contactControlList[$index].controls.Email"></errors>
+                                </div>
+                            </td>
+                            <td width="20%">
+                                <span *ngIf="!checkboxes.items[$index]"  class="control-color">{{(contactControlList[$index].value.PrimaryType==0) ? '' : (contactControlList[$index].value.PrimaryType==1) ? 'Phone' : 'Email'}}</span>
+                                <div *ngIf="checkboxes.items[$index]" 
+                                     [ngClass]="{'has-warning' : contactControlList[$index].controls.PrimaryType.dirty, 
+                                        'has-error': contactControlList[$index].controls.PrimaryType.touched && 
+                                         contactControlList[$index].controls.PrimaryType.invalid}">
+                                    <select id="ddlPrimaryType_{{$index}}" name="primaryType_{{$index}}"                                            
+                                            formControlName="PrimaryType"
+                                            class="form-control field-width-less"
+                                            [ngClass]="{'placeholder-color': contactControlList[$index].value.PrimaryType==0, 'control-color': contactControlList[$index].value.PrimaryType > 0,
+                                                    'has-warning-me': ddlPrimaryTypeDirty[$index] }" >                                        
+                                        <option *ngIf="contactControlList[$index].value.PrimaryType==0" value="0" class="placeholder-color">Please select...</option>
+                                        <option *ngFor="let item of model.primaryTypes" [ngValue]="item.id" class="control-color">
+                                            {{item.name}}
+                                        </option>
+                                    </select>
+                                    <errors [control]="contactControlList[$index].controls.PrimaryType"></errors>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span class="legend-line" style="margin-top: -10px;">(<span class='field-required'>*</span>: required field)</span>
+            </div>
+            <div class="button-div">
+                <button type="button" class="btn"
+                        #saveChangesButton (mouseover)="focusOnButton('saveChanges')"
+                        [ngClass]="{'btn-primary': contactForm.controls.contactFmArr.dirty && contactForm.controls.contactFmArr.valid, 'btn-primary-disabled': !(contactForm.controls.contactFmArr.dirty && contactForm.controls.contactFmArr.valid)}"
+                        id="btnSaveChanges" (click)="saveChanges()">
+                    Save Changes
+                </button>
+                <!--Use "ng-mousedown" (occurring earlier) instead of "ng-click" to avoid previous focused input element "on-blur" action before clicking Add button-->
+                <button type="button" class="btn space-before-button"
+                        #cancelChangesButton (mouseover)="focusOnButton('cancelChanges')"
+                        [ngClass]="{'btn-secondary': editRowCount > 0 || addRowCount > 0, 'btn-secondary-disabled': editRowCount == 0 && addRowCount == 0 }"
+                        id="btnCancelChanges" (mousedown)="canelChanges()">
+                    Cancel Changes
+                </button>
+            </div>
+            <div class="space-top-button">
+                <!--Use "ng-mousedown" instead of "ng-click" (see above)-->
+                <button type="button" class="btn btn-success space-before-button" [disabled]="addRowCount >= maxAddNumber" id="btnAddContacts" (mousedown)="addNewContact()">&#160;&#160;Add&#160;&#160;</button>
+                <button type="button" class="btn space-before-button"
+                        #deleteButton (mouseover)="focusOnButton('delete')"
+                        [ngClass]="{'btn-success': !contactForm.controls.contactFmArr.dirty && editRowCount > 0, 'btn-success-disabled': contactForm.controls.contactFmArr.dirty || editRowCount < 1 }"
+                        id="btnDeleteContacts" (click)="deleteContacts()">
+                    &#160;Delete&#160;
+                </button>
+            </div>
+        </div>
+    </form> 
+</div>

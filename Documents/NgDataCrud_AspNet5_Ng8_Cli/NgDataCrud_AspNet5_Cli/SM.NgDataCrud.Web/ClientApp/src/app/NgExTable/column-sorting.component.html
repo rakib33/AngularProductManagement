@@ -1,0 +1,18 @@
+﻿<a (click)="toggleSort(obj, $event)" class="cursor-pointer">
+    <!--Use dynamic add/remove class for nativeElement-->
+    <!--<i class="sort-icon fa"
+       [class.fa-sort]="sortableItem.sortDirection==''"
+       [class.fa-chevron-up]="sortableItem.sortDirection=='asc'"
+       [class.fa-chevron-down]="sortableItem.sortDirection=='desc'">
+    </i>-->
+    <i class="sort-icon" #sortIcon></i>
+</a>
+<!--Sequence number dropdown list-->
+<div *ngIf="showSequenceOption" class="sequence-selector" #sequenceDiv>
+    <select id="ddlSortSequence" #sequenceSelect
+            [(ngModel)]="sequenceSelected" (ngModelChange)="onSequenceChange($event)">
+        <option *ngFor="let option of sequenceOptions" [ngValue]="option">
+            {{option.text}}
+        </option>
+    </select>    
+</div>

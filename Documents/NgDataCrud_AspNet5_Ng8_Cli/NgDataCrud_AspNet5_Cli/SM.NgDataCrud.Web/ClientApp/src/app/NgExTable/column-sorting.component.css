@@ -1,0 +1,30 @@
+﻿.sort-icon {
+    color: #c5c5c5;
+    padding-left: 0.5rem;
+}
+
+.sequence-selector {
+    display: inline;
+}
+
+/*For IE 11*/
+.sequence-selector select::-ms-expand {
+    display: none;
+}
+
+.sequence-selector select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 0.8rem;
+    background-color: #efeded;
+    width: 0.9rem;
+    height: 1rem;
+    margin-left: 0.15rem;
+    -ms-text-align-last: center;
+    text-align-last: center;
+    vertical-align: middle;
+    border: none;
+    border-radius: 0.15rem;
+}
+

@@ -1,0 +1,95 @@
+﻿<div class="modal-content">
+    <div class="dialog-header">    
+        <!--<button type="button" class="close" [focus-blur]="'focus_blur'" (click)="cancel()">&times;</button>-->
+        <h4>{{ model.productDialogTitle }}</h4>
+    </div>
+    <form class="form-horizontal" [formGroup]="productForm" (ngSubmit)="saveProduct(productForm)" novalidate>
+        <div class="dialog-message dialog-body">            
+            <div class="form-group row" [ngClass]="{'has-warning': productForm.controls.productName.dirty, 'has-error': productForm.controls.productName.touched && productForm.controls.productName.invalid }">
+                <label for="txtProductName" class="label-adjust">Product Name <span class="field-required">*</span></label>
+                <div>
+                    <input type="text" class="form-control" id="txtProductName" name="productName" #productNameElem
+                           formControlName="productName"
+                           required maxlength="50"
+                           (focus)="setDrag(true)" (blur)="setDrag(false)" />
+                    <errors [control]="productForm.controls.productName"></errors>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="txtCategory" class="label-adjust">Category <span class="field-required">*</span></label>
+                <div>
+                    <select id="ddlCategory" name="category" class="form-control" placeholder="Please select..."
+                            [ngClass]="{'has-warning-me': productForm.controls.category.dirty, 'has-error-me': productForm.controls.category.touched && productForm.controls.category.invalid,
+                                    'placeholder-color': productForm.value.category == '', 'control-color': productForm.value.category != ''
+                                   }"
+                            formControlName="category"
+                            (focus)="setDrag(true)" (blur)="setDrag(false)">
+                        <option *ngIf="callerData.callId == undefined && productForm.value.category == ''" value="" class="placeholder-color">Please select...</option>
+                        <option *ngFor="let item of model.CategoryList" [ngValue]="item.CategoryId" class="control-color">
+                            {{item.CategoryName}}
+                        </option>
+                    </select>
+                    <errors [control]="productForm.controls.category"></errors>
+                </div>
+            </div>
+            <div class="form-group row" [ngClass]="{'has-warning': productForm.controls.unitPrice.dirty, 'has-error': productForm.controls.unitPrice.touched && productForm.controls.unitPrice.invalid }">
+                <label for="txtUnitPrice" class="label-adjust">Unit Price ($) <span class="field-required">*</span></label>
+                <div>
+                    <input type="text" class="form-control" id="txtUnitPrice" name="unitPrice"
+                           formControlName="unitPrice"
+                           (focus)="setDrag(true)" (blur)="setDrag(false)" />
+                    <errors [control]="productForm.controls.unitPrice"></errors>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="txtStatus" class="label-adjust">Status</label>
+                <select id="ddlStatus" class="form-control" name="status"                       
+                        [ngClass]="{'has-warning-me': productForm.controls.status.dirty, 'has-error-me': productForm.controls.status.touched && productForm.controls.status.invalid,
+                                    'placeholder-color': productForm.value.status == '', 'control-color': productForm.value.status != '' 
+                                   }"
+                        formControlName="status"
+                        (focus)="setDrag(true)" (blur)="setDrag(false)">
+                    <option *ngIf="callerData.callId == undefined && productForm.value.status == ''" value="" class="placeholder-color">Please select...</option>
+                    <option *ngFor="let item of model.ProductStatusTypes" [ngValue]="item.StatusCode" class="control-color">
+                        {{item.Description}}
+                    </option>
+                </select>               
+            </div>
+            <div class="form-group row low-bottom" [ngClass]="{'has-warning': productForm.controls.availableSince.dirty, 'has-error': productForm.controls.availableSince.touched && productForm.controls.availableSince.invalid }">
+                <label for="txtAvailableSince" class="label-adjust">Available Since</label>                
+                <table>
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control field-width-reduced"  
+                                   name="availableSince" id="txtAvailableSince" 
+                                   formControlName="availableSince"
+                                   ngx-mydatepicker [options]="myDatePickerOptions" 
+                                   [defaultMonth]="defMonth" #dpFrom="ngx-mydatepicker"                                   
+                                   [attr.disabled]="dpDisabled?'':null" autocomplete="off"
+                                   (focus)="setDrag(true);setShowInvalid(productForm.controls.availableSince, 0)" 
+                                   (blur)="setDrag(false);setShowInvalid(productForm.controls.availableSince, 1)"/>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default height-to-form-control" (click)="dpFrom.toggleCalendar()"><i class="fa fa-calendar" style="font-size: 1.15rem;"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <errors [control]="productForm.controls.availableSince"></errors>
+                        </td>
+                    </tr>
+                </table> 
+            </div>
+        </div>
+        <div class="dialog-buttons dialog-footer" >
+            <span class="legend-line float-left">(<span class='field-required'>*</span>: required field)</span>
+            <!--Always switch focus from parent click button to popup to avoid pressing Enter key to open second popup.-->
+            <button type="button" class="dialog-button dialog-button-secondary" #cancelButton (mouseover)="focusOnButton('cancel')"
+                    (click)="cancel()" [focus-blur]="'focus_blur'">Cancel</button>
+            <button type="submit" class="dialog-button" #saveButton (mouseover)="focusOnButton('save')"
+                    [ngClass]="{'dialog-button-primary': productForm.valid && productForm.dirty, 'dialog-button-primary-disabled': !(productForm.valid && productForm.dirty)} " >
+                &#160;Save&#160;
+            </button>             
+        </div>
+    </form>
+</div>

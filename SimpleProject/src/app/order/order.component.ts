@@ -16,8 +16,9 @@
 // }
 
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder } from '@angular/forms'
-
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms'
+import {SelectList} from '../../Model/ViewModel'
+  import { from } from 'rxjs';
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -30,15 +31,17 @@ export class OrderComponent implements OnInit {
   title = 'Nested FormArray Example Add Form Fields Dynamically';
  
   empForm:FormGroup;
-  nestedForm : FormGroup;
-  private options: string[] = ["10", "20", "50"];
+  nestedForm : FormGroup; 
   selectedQuantity = "10";
- 
+  ProductList = []; //for dropdownList
+  selectedProduct: String;
+  modifedtext : string;
   constructor(private fb:FormBuilder) {
  
-    this.empForm=this.fb.group({
-      employees: this.fb.array([]) ,
-    })
+    // this.empForm=this.fb.group({
+    //   employees: this.fb.array([]) ,
+    // })
+   
   }
   ngOnInit(): void {
     this.nestedForm = this.fb.group({
@@ -49,9 +52,39 @@ export class OrderComponent implements OnInit {
       InvoiceNo: [],
       Purchase: this.fb.array([this.addPurchaseGroup()])
       //skills:this.fb.array([])
-    });  
+    }); 
+    
+    this.ProductList = this.getProducts();
+    //this.selectedProduct = '4';
    }
 
+  //  Purchase(): FormArray {
+  //   return this.nestedForm.get("Purchase") as FormArray
+  // }
+  // Purchase(empIndex:number) : FormArray {
+  //   //return this.nestedForm().at(empIndex).get("Purchase") as FormArray
+  // }
+ 
+
+   getProducts() {
+    return [
+      { id: '1', name: 'order 1' },
+      { id: '2', name: 'order 2' },
+      { id: '3', name: 'order 3' },
+      { id: '4', name: 'order 4' }
+    ];
+  }
+onProductSelected(event, index:number,group){
+  let selectedProduct = event.target.value;
+  let selectedIndex = index;
+  this.fetchProductRate(index,group);
+}
+
+ fetchProductRate(index:number,group){
+   this.modifedtext= "The value " + group.get('Product_Id').Product_Id + " was selected from dropdown";
+   group.get('BuyRate').setValue(index * 100);
+  }
+  
 addPurchaseGroup(){
  return this.fb.group({
     // Id:[],
@@ -59,7 +92,7 @@ addPurchaseGroup(){
     Qty: [], //Quantity
     BuyRate:[], //Rate
     BuyTotal:[], //Total
-    Product_Id: [],
+    Product_Id:[]
     // InvoiceDate:[]
  });
 }

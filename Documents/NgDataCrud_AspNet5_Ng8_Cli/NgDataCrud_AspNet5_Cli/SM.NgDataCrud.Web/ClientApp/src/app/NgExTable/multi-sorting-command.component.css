@@ -1,0 +1,28 @@
+﻿.sort-box {
+    max-height: 0px;
+    overflow-y: hidden;
+    -moz-transition: ease-in-out 100ms max-height;
+    -o-transition: ease-in-out 100ms max-height;
+    -webkit-transition: ease-in-out 100ms max-height;
+    transition: ease-in-out 100ms max-height;
+}
+
+.sort-box.opened {
+    max-height: 10rem;
+    -moz-transition: ease-in-out 150ms max-height;
+    -o-transition: ease-in-out 150ms max-height;
+    -webkit-transition: ease-in-out 150ms max-height;
+    transition: ease-in-out 150ms max-height;
+    padding: 0.4rem;
+}
+
+.sort-box .sort-box-label {
+    color: #808080;
+    font-weight: 600;
+    padding-right: 1.5rem;
+}
+
+.btn {
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+}
