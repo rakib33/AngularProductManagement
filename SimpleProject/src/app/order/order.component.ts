@@ -50,6 +50,15 @@ export class OrderComponent implements OnInit {
       Phone: [], //Contact
       Customer_Id: [], //Supplier Id, from dropdown
       InvoiceNo: [],
+      Total: 0, //sub total
+      OtherExpense:0, // Vat
+      Discount:0,
+      Payable :0 ,// Total Amount or Grand Total
+      Paid:0, 
+      Due:0,
+      Description:[],
+      PaymentType:[],
+      Status:[],
       Purchase: this.fb.array([this.addPurchaseGroup()])
       //skills:this.fb.array([])
     }); 
@@ -80,11 +89,27 @@ onProductSelected(event, index:number,group){
   this.fetchProductRate(index,group);
 }
 
+onQtyChanged(event,group){
+  let ProductQty : number = event.target.value;
+  let productRate : number = group.controls.BuyRate.value;
+  group.get('BuyTotal').setValue(ProductQty * productRate);
+}
+
  fetchProductRate(index:number,group){
    this.modifedtext= "The value " + group.get('Product_Id').Product_Id + " was selected from dropdown";
    group.get('BuyRate').setValue(index * 100);
   }
   
+  get capValues(): FormArray {
+    return this.nestedForm.get('Purchase') as FormArray;
+}
+sum: number = 0 ;
+getSum() {
+    this.sum = this.capValues.value.reduce((prev, next) => prev + +next.fdnTotalShares, 0);
+    // OR
+    // this.sum = this.capValues.getRawValue().reduce((prev, next) => prev + +next.fdnTotalShares, 0);
+}
+    
 addPurchaseGroup(){
  return this.fb.group({
     // Id:[],
@@ -109,6 +134,7 @@ removeAddress(index){
  submitHandler() {
   //console.log(this.empForm.value);
   console.log(this.nestedForm.value);
+  console.log(this.getSum());
 }
   // employees(): FormArray {
   //   return this.empForm.get("employees") as FormArray
