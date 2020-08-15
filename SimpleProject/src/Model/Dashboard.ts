@@ -3,5 +3,5 @@ export class Dashboard {
     TotalProduct: number;
     TotalOrder: number;
     LowCost: number;
-    SelectedDate: any;
+    SelectedDate: Date;
 }

@@ -5,7 +5,7 @@
             <div class="col-md-4">
                 <div class="card" style="background-color: #D1E3C9;">
                     <div class="card-body" style="padding: .75rem;">
-                        <p class="card-text">Total Product</p>
+                        <p class="card-text">Total Product {{dashBoard.TotalProduct}}</p>
                     </div>
                 </div>
             </div>
@@ -13,47 +13,51 @@
                 <div class="card" style="background-color: #C8E4F2;">
                     <div class="card-body" style="padding: .75rem;">
                         <div class="card-text">Total Order</div>
-                        <div class="text-right badge badge-pill badge-outline-primary">2</div>
-                      </div>
+                        <div class="text-right badge badge-pill badge-outline-primary">{{dashBoard.TotalOrder}}</div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card" style="background-color: #EED3CA;" >
+                <div class="card" style="background-color: #EED3CA;">
                     <div class="card-body" style="padding: .75rem;">
-                      <div class="card-text">Low Stock</div>
-                      <div class="text-right badge badge-pill badge-outline-danger">1</div>
-                    </div>  
+                        <div class="card-text">Low Stock</div>
+                        <div class="text-right badge badge-pill badge-outline-danger">{{dashBoard.LowCost}}</div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row mt-4">
             <div class="col-md-4">
-                    <div class="card" style="height: 160px;">
-                        <div class="card-header" style="height: 70%; padding: 1.05rem; background-color: #3E9A47;">
-                            <p class="card-text" style="text-align: center; font-size: 3.75rem;">{{CurrentDate | date:'dd'}}</p>
-                        </div>
-                        <div class="card-body" style="padding: .75rem;">
-                            <p class="card-text" style="text-align: center;">{{CurrentDate | date}}</p>
-                        </div> 
-                        <!-- Friday 15, 2020 -->
+                <div class="card" style="height: 160px;">
+                    <div class="card-header" style="height: 70%; padding: 1.05rem; background-color: #3E9A47;">
+                        <p class="card-text" style="text-align: center; font-size: 3.75rem;">{{CurrentDate | date:'dd'}}
+                        </p>
                     </div>
+                    <div class="card-body" style="padding: .75rem;">
+                        <p class="card-text" style="text-align: center;">{{CurrentDate | date}}</p>
+                    </div>
+                    <!-- Friday 15, 2020 -->
+                </div>
 
-                    <div (click)="toggleHighlight(1);" [ngStyle]="{'background-color':highlightedDiv === 1 ? 'blue' : 'red' }" class="card" style="height: 160px; margin-top: 1.5rem;">
-                        <div class="card-header" style="height: 70%; padding: 1.05rem; background-color: #1D5180;">
-                            <p class="card-text" style="text-align: center; font-size: 3.75rem;">0</p>
-                        </div>
-                        <div class="card-body" style="padding: .75rem;">
-                            <p class="card-text" style="text-align: center;" id="DateId">$ Total Revenue</p>
-                        </div>
+                <div (click)="toggleHighlight(1);"
+                    [ngStyle]="{'background-color':highlightedDiv === 1 ? 'blue' : 'red' }" class="card"
+                    style="height: 160px; margin-top: 1.5rem;">
+                    <div class="card-header" style="height: 70%; padding: 1.05rem; background-color: #1D5180;">
+                        <p class="card-text" style="text-align: center; font-size: 3.75rem;">{{dashBoard.TotalRevenue}}
+                        </p>
                     </div>
+                    <div class="card-body" style="padding: .75rem;">
+                        <p class="card-text" style="text-align: center;" id="DateId">$ Total Revenue</p>
+                    </div>
+                </div>
             </div>
-            
-            
+
+
             <div class="col-md-8">
                 <full-calendar [options]="calendarOptions"></full-calendar>
             </div>
         </div>
-        
+
     </div>
     <div class="col-md-1"></div>
 </div>
