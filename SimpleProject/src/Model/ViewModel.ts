@@ -3,3 +3,6 @@ export class SelectList {
     Id: string;   
   }
   
+  export class kiniOrder{
+    Total : number;
+  } 
