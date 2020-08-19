@@ -1,24 +1,8 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-order',
-//   templateUrl: './order.component.html',
-//   styles: [
-//   ]
-// })
-// export class OrderComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
-
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms'
-import {SelectList} from '../../Model/ViewModel'
-  import { from } from 'rxjs';
+import { OrderService } from '../../services/order-service.service';
+import {SelectList,kiniOrder} from '../../Model/ViewModel'
+import { from } from 'rxjs';
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -36,7 +20,7 @@ export class OrderComponent implements OnInit {
   ProductList = []; //for dropdownList
   selectedProduct: String;
   modifedtext : string;
-  constructor(private fb:FormBuilder) {
+  constructor(private fb:FormBuilder,private service:OrderService) {
  
     // this.empForm=this.fb.group({
     //   employees: this.fb.array([]) ,
@@ -59,21 +43,13 @@ export class OrderComponent implements OnInit {
       Description:[],
       PaymentType:[],
       Status:[],
-      Purchase: this.fb.array([this.addPurchaseGroup()])
+      Purchases: this.fb.array([this.addPurchaseGroup()])
       //skills:this.fb.array([])
     }); 
     
     this.ProductList = this.getProducts();
     //this.selectedProduct = '4';
    }
-
-  //  Purchase(): FormArray {
-  //   return this.nestedForm.get("Purchase") as FormArray
-  // }
-  // Purchase(empIndex:number) : FormArray {
-  //   //return this.nestedForm().at(empIndex).get("Purchase") as FormArray
-  // }
- 
 
    getProducts() {
     return [
@@ -101,7 +77,7 @@ onQtyChanged(event,group){
   }
   
   get capValues(): FormArray {
-    return this.nestedForm.get('Purchase') as FormArray;
+    return this.nestedForm.get('Purchases') as FormArray;
 }
 sum: number = 0 ;
 getSum() {
@@ -129,59 +105,42 @@ removeAddress(index){
   this.addPurchaseArray.removeAt(index);
 }
  get addPurchaseArray(){
-   return <FormArray>this.nestedForm.get('Purchase');
+   return <FormArray>this.nestedForm.get('Purchases');
  }
  submitHandler() {
   //console.log(this.empForm.value);
+  let PostData = this.nestedForm.value;
   console.log(this.nestedForm.value);
+  this.createPost(PostData);
+
   console.log(this.getSum());
 }
-  // employees(): FormArray {
-  //   return this.empForm.get("employees") as FormArray
-  // }
- 
- 
-  // newEmployee(): FormGroup {
-  //   return this.fb.group({
-  //     firstName: '',
-  //     lastName: '',
-  //     skills:this.fb.array([])
-  //   })
-  // }
- 
- 
-  // addEmployee() {
-  //   console.log("Adding a employee");
-  //   this.employees().push(this.newEmployee());
-  // }
- 
- 
-  // removeEmployee(empIndex:number) {
-  //   this.employees().removeAt(empIndex);
-  // }
- 
- 
-  // employeeSkills(empIndex:number) : FormArray {
-  //   return this.employees().at(empIndex).get("skills") as FormArray
-  // }
- 
-  // newSkill(): FormGroup {
-  //   return this.fb.group({
-  //     skill: '',
-  //     exp: '',
-  //   })
-  // }
- 
-  // addEmployeeSkill(empIndex:number) {
-  //   this.employeeSkills(empIndex).push(this.newSkill());
-  // }
- 
-  // removeEmployeeSkill(empIndex:number,skillIndex:number) {
-  //   this.employeeSkills(empIndex).removeAt(skillIndex);
-  // }
- 
 
- 
+createPost(postData){
+
+ let  kinidata = new kiniOrder();
+ kinidata.Total = 100; 
+
+
+  this.service.create(postData)
+    .subscribe(res => {
+      let Data = res;
+       
+   })
+
+   this.service.SubmitTransaction(kinidata)
+    .subscribe((res) => {
+      let Data = res;
+      this.nestedForm.reset();
+    
+   },(error:any)=>console.log(error))
+  //  this.service.createTest2()
+  //   .subscribe(res => {
+  //     let Data = res;
+       
+  //  })
+}
+
 }
  
  
