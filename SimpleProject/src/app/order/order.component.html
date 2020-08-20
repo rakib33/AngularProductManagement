@@ -1,25 +1,24 @@
 
-<div>
     <div class="row mt-4">
         <div class="col-md-12">
             <div style="background-color: #F1F1F1; height: 35px; padding:.30rem;">
                 <div class="row">
                     <a routerLink="/dashboard" href="#" style="color: black; padding-left: 20px;">Home</a>
                     <p style="padding-left: 15px;">/</p>
-                    <a style="color: black; padding-left: 20px;" >Order</a>
+                    <a style="color: black; padding-left: 20px;">Order</a>
                     <p style="padding-left: 15px;">/</p>
-                    <a href="order/add-order" style="color: black; padding-left: 20px;" >Add Order</a>
-                    
-                </div> 
+                    <a href="order/add-order" style="color: black; padding-left: 20px;">Add Order</a>
+
+                </div>
             </div>
-        </div>       
+        </div>
     </div>
 
     <div class="row mt-4">
-        <form style="width: 100%;" [formGroup]="nestedForm" (ngSubmit)="submitHandler()"> 
-          <div class="row">                     
-            <div class="col-md-12">
-               <div style="border-style:solid; border-width: .2rem; border-color: #F1F1F1;">                  
+        <form style="width: 100%;" [formGroup]="nestedForm" (ngSubmit)="submitHandler()">
+            <div class="row">
+                <div class="col-md-12">
+                    <div style="border-style:solid; border-width: .2rem; border-color: #F1F1F1;">
                         <div style="background-color: #F1F1F1; height: 30px;">
                             Add Order
                         </div>
@@ -61,7 +60,7 @@
                                     <input formControlName="Phone" type="text" class="form-control" id="Phone">
                                 </div>
                             </div>
-                        </div>    
+                        </div>
                         <!-- Supplier Name from DropDown,Backend Id will Save  -->
                         <div class="row" style=" padding-left: 10px; padding-right: 10px;">
                             <div class="col-md-3">
@@ -74,110 +73,156 @@
                                     <input formControlName="Customer_Id" type="text" class="form-control" id="Customer_Id">
                                 </div>
                             </div>
-                        </div>        
-                        
-                          <!-- Invoice No   -->
-                          <!-- <div class="row" style=" padding-left: 10px; padding-right: 10px;">
-                            <div class="col-md-3">
-                                <div class="form-group" style="float: right; padding-top: .35rem;">
-                                    <label for="inputClientContact">Suppilier Contact</label>
-                                </div>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <input formControlName="Customer_Id" type="text" class="form-control" id="inputClientContact">
-                                </div>
-                            </div>
-                        </div>         -->
-              
-                </div>    
-            </div>   
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-             <hr>
-             <button (click)="addAddress()">Add</button>
-            </div>
-          </div>
-<!-- form array nested Element -->
-<div class="row" formArrayName="Purchase">
-    <div class="col-md-12" *ngFor="let group of addPurchaseArray.controls; let i = index;" [formGroupName]="i">
-      <div class="row">
-          <div class="col-md-1">{{i}}</div>
-       <div class="col-3">
-        <input type="text" formControlName="Product_Id" class="form-control" id="Product_Id">
-       </div>
-       <div class="col-3"><input type="text" formControlName="BuyRate" class="form-control" id="BuyRate"></div>
-       <div class="col-2"><input type="text" formControlName="Qty" class="form-control" id="Qty"></div>
-       <div class="col-2"><input type="text" formControlName="BuyTotal" class="form-control" id="BuyTotal"></div>
-       <div class="col-1">
-           <button (click)="removeAddress(i)">Remove</button>
-       </div>
-      </div>
-    </div>
-  </div>
-  <p>
-    <button type="submit">Submit</button>
-  </p>
-</form>
-</div>
-  
-<!-- <router-outlet></router-outlet> -->
+                        </div>                     
 
-<!-- <h1>{{title}}</h1>
- 
-<form [formGroup]="empForm" (ngSubmit)="onSubmit()">
- 
-  <div formArrayName="employees">
- 
-    <div *ngFor="let employee of employees().controls; let empIndex=index">
- 
-      <div [formGroupName]="empIndex" style="border: 1px solid blue; padding: 10px; width: 600px; margin: 5px;">
-        {{empIndex}}
-        First Name :
-        <input type="text" formControlName="firstName">
-        Last Name:
-        <input type="text" formControlName="lastName">
- 
-        <button (click)="removeEmployee(empIndex)">Remove</button>
- 
- 
-        <div formArrayName="skills">
- 
-          <div *ngFor="let skill of employeeSkills(empIndex).controls; let skillIndex=index">
- 
- 
- 
-            <div [formGroupName]="skillIndex">
-              {{skillIndex}}
-              Skill :
-              <input type="text" formControlName="skill">
-              Exp:
-              <input type="text" formControlName="exp">
- 
-              <button (click)="removeEmployeeSkill(empIndex,skillIndex)">Remove</button>
- 
+                    </div>
+                </div>
             </div>
- 
-          </div>
-          <button type="button" (click)="addEmployeeSkill(empIndex)">Add Skill</button>
-        </div>
- 
- 
-      </div>
- 
+
+            <!-- add button row -->
+            <div class="row">
+                <div class="col-md-12">                    
+                    <hr>
+                    <button (click)="addAddress($event)">+ Add</button>
+                </div>
+            </div>
+            <!-- end add button row -->
+            
+            <!-- nested form Header -->
+            <div class="row">
+                <div class="col-md-1"><strong>Sl No</strong></div>
+                <div class="col-md-3 text-center"><strong>Product</strong></div>
+                <div class="col-md-3 text-center"><strong>Rate</strong></div>
+                <div class="col-md-2 text-center"><strong>Quantity</strong></div>
+                <div class="col-md-2 text-center"><strong>Total</strong></div>
+                <div class="col-md-1 text-center"></div>
+              </div>
+              <!-- end form header -->
+
+            <!-- form array nested Element -->
+            <div class="row" formArrayName="Purchases">
+                <div class="col-md-12" *ngFor="let group of addPurchaseArray.controls; let i = index;" [formGroupName]="i">
+                    <div class="row">
+                        <div class="col-md-1">{{i}}</div>
+                        <div class="col-3">
+                            <!-- [(ngModel)]="selectedProduct" -->
+                            <select (change)='onProductSelected($event,i,group)' id="Product_Id"
+                                formControlName="Product_Id" class="form-control">
+                                <option selected [ngValue]="null">Choose..</option>
+                                <option *ngFor="let order of ProductList; let i = index" [value]="order.id">
+                                    {{order.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" formControlName="BuyRate" class="form-control" id="BuyRate">
+                        </div>
+                        <div class="col-2">
+                            <input type="text" formControlName="Qty" (keyup)='onQtyChanged($event,group)' class="form-control" id="Qty">
+                        </div>
+                        <div class="col-2">
+                            <input type="text" formControlName="BuyTotal" class="form-control" id="BuyTotal">
+                        </div>
+                        <div class="col-1">
+                            <button (click)="removeAddress(i)">Remove</button>
+                        </div>
+                        
+                    </div>                
+                </div> 
+            </div>
+            <!-- End nested form array -->
+            
+            <!-- form description part -->
+            <div class="row mt-4 mb-4">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3">Sub Total</div>
+                        <div class="col-md-8">
+                            <input type="text" formControlName="Total" class="form-control" id="Total">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">Vat(0%)</div>
+                        <div class="col-md-8">
+                            <input type="text" formControlName="OtherExpense" class="form-control" id="OtherExpense">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">Discount</div>
+                        <div class="col-md-8">
+                            <input type="text" formControlName="Discount" class="form-control" id="Discount">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">Total Amount</div>
+                        <div class="col-md-8">
+                            <input type="text" formControlName="Payable" class="form-control" id="Payable">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-8 mt-4" style="height: 30px;">
+                            <span>
+                                <button type="submit">Submit</button>
+                            </span>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- right side block -->
+                <div class="col-md-6">
+
+                    <div class="row">
+                        <div class="col-md-3">Paid Amount</div>
+                        <div class="col-md-8">
+                            <input type="text" formControlName="Paid" class="form-control" id="Paid">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">Due Amount</div>
+                        <div class="col-md-8">
+                            <input type="text" formControlName="Due" class="form-control" id="Due">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Payment Type</div>
+                        <div class="col-md-8">
+                            <select id="PaymentType" formControlName="PaymentType" class="form-control">
+                                <option>Cash</option>
+                                <option>Cheque</option>
+                                <option>Credit Card</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">Status</div>
+                        <div class="col-md-8">
+                            <select id="Status" formControlName="Status" class="form-control">
+                                <option>Full Payment</option>
+                                <option>Advance Payment</option>
+                                <option>No Payment</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-3">Description</div>
+                    <div class="col-md-8">
+                        <textarea formControlName="Description" class="form-control"></textarea>
+                    </div>
+                    </div>
+                </div>
+                <!-- end right side block -->
+
+
+			</div>
+            <!-- End form description Part -->
+
+        </form>
     </div>
-  </div>
- 
-  <p>
-    <button type="submit">Submit</button>
-  </p>
- 
-</form>
- 
- 
-<p>
-  <button type="button" (click)="addEmployee()">Add Employee</button>
-</p> 
- 
-{{this.empForm.value | json}}  -->

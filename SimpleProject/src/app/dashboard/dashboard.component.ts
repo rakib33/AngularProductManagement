@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-//import { CalendarOptions } from '@fullcalendar/angular'; // useful for typechecking
 import { FullCalendarComponent, CalendarOptions } from '@fullcalendar/angular';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable , from } from 'rxjs';
 import { globalConstant } from '../../Model/appVariable';
 import { Dashboard } from '../../Model/Dashboard';
 
@@ -15,7 +14,7 @@ import { Dashboard } from '../../Model/Dashboard';
 export class DashboardComponent implements OnInit {
   dashBoard = {};
   CurrentDate = Date.now();
-  DashBoardAPI = globalConstant.BaseUrl + 'KiniApi/GetDashBoardData';
+  DashBoardAPI = globalConstant.BaseUrl + 'GetDashBoardData';
   constructor(private http: HttpClient) { 
     this.dashBoard = new Dashboard();
   }
@@ -31,10 +30,8 @@ export class DashboardComponent implements OnInit {
 
   handleDateClick(arg) {
     console.log(arg.dateStr);
-    //alert('date click! ' + arg.dateStr)
-    this.CurrentDate = arg.dateStr
-    //document.getElementById('DateId').innerHTML = arg.dateStr;
-     this.GetDashboardData(this.CurrentDate);
+    this.CurrentDate = arg.dateStr; 
+    this.GetDashboardData(this.CurrentDate);
   }
 
   highlightedDiv: number;
@@ -50,28 +47,62 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      
+    this.GetDashboardData(this.CurrentDate);
   }
 
   GetDashboardData(selectedDate)  {
      //const headers = { 'Authorization': 'Bearer my-token', 'My-Custom-Header': 'foobar' }
      const body = { selectedDate: selectedDate }
-     //const body=JSON.stringify(person);
-    //  //HttpContext.Response.AppendHeader("Access-Control-Allow-Origin", "*");
-    //  const headers = new HttpHeaders()
-    //  .append('Content-Type', 'application/json')
-    //  .append('Access-Control-Allow-Headers', 'Content-Type')
-    //  .append('Access-Control-Allow-Methods', 'GET')
-    //  .append('Access-Control-Allow-Origin', '*');
-     const headers = {'Content-Type':'application/json', 'Access-Control-Allow-Origin': '*' }
-     this.http.post<Dashboard>(this.DashBoardAPI, body,{headers}).subscribe(data => {
-       this.dashBoard = data;
+     //const headers = {'Content-Type':'application/json','x-requested-with': 'XMLHttpRequest'}
+     //this.DashBoardAPI = globalConstant.BaseUrl + 'GetDashBoardData';
+     let url =this.DashBoardAPI + "?selectedDate="+selectedDate
+     this.http.get<any>(url).subscribe(res => {
+       let Data = res;
+        if(res.IsSuccess == true){
+          this.dashBoard = res.data;
+          alert('Success');
+        }else{
+          alert(res.message);
+        }
+       console.log('fromGet',this.dashBoard);
     })
-        
-    console.log(this.dashBoard);
-    // this.http.post<any>('https://jsonplaceholder.typicode.com/posts', body, { headers }).subscribe(data => {
-    //   this.postId = data.id;
-    //  })
+    
   }
- 
+
+  getData(): Observable<any> {
+    return from(
+      fetch(
+        this.DashBoardAPI, // the url you are trying to access
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          method: 'GET', // GET, POST, PUT, DELETE
+          mode: 'no-cors' // the most important option
+        }
+      ).then(data => {
+        this.dashBoard = data;
+        console.log('fromGet',this.dashBoard);
+     }))
+  }
+
+
+  httpOptions = {
+    headers: {'Content-Type': 'application/json','x-requested-with': 'XMLHttpRequest' }, 
+    withCredentials: true, 
+    mode: 'no-cors' // the most important option
+  };
+  
+  save(myData): Observable<any>{
+      return this.http.post(
+        this.DashBoardAPI + 'save',
+        {
+          myData,
+        },
+       this.httpOptions
+      );
+    }
 }
+  
+ 
+
