@@ -1,6 +1,7 @@
 <div class="card mt-4">
   <div class="card-header">
     Manage Brand
+   
   </div>
   <div class="card-body">
   <table datatable [dtOptions]="dtOptions" class="row-border hover">
@@ -10,6 +11,7 @@
         <th>Status</th>
         <th></th>
       </tr>
+      
     </thead>
     <tbody *ngIf="persons?.length != 0">
         <tr *ngFor="let person of persons">
@@ -37,3 +39,6 @@
   </table>
 </div>
 </div>
+
+
+<!-- this is for modal popup -->

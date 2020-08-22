@@ -1,21 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+//import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Brand } from '../../Model/brand';
 import { globalConstant } from '../../Model/appVariable'
-// class Brand {
-//   Name: string;
-//   CountryName?: any;
-//   ISIN: string;
-//   Description: string;
-//   Status?: any;
-//   Catagory_Id: string;
-//   Catagory?: any;
-//   Id: string;
-//   CreatedBy: string;
-//   CreatedDate: Date;
-//   UpdateBy?: any;
-//   UpdateDate?: any;
-// }
+
 class RootObject {
   IsSuccess: boolean;
   brands: Brand[];
@@ -47,11 +35,44 @@ class DataTablesResponse {
   ]
 })
 export class BrandComponent implements OnInit {
-  getBrandApi = globalConstant.BaseUrl + 'KiniApi/GetBrand';
+  getBrandApi =  'https://angular-datatables-demo-server.herokuapp.com/';
+  //globalConstant.BaseUrl + 'KiniApi/GetBrand';
   persons: Person[];
-  constructor(private http: HttpClient) { }
+
+  closeResult: string;
+  //modalOptions:NgbModalOptions;
+
+  constructor(private http: HttpClient) { //,private modalService: NgbModal
+    // this.modalOptions = {
+    //   backdrop:'static',
+    //   backdropClass:'customBackdrop'
+    // }
+   }
 
   dtOptions: any  = {};
+
+//modal open close
+  // open(content) {
+  //   this.modalService.open(content, this.modalOptions).result.then((result) => {
+  //     this.closeResult = `Closed with: ${result}`;
+  //   }, (reason) => {
+  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  //   });
+  // }
+
+  // private getDismissReason(reason: any): string {
+  //   if (reason === ModalDismissReasons.ESC) {
+  //     return 'by pressing ESC';
+  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+  //     return 'by clicking on a backdrop';
+  //   } else {
+  //     return  `with: ${reason}`;
+  //   }
+  // }
+
+// above is for modal 
+
+
 //DataTablesResponse
 //'https://angular-datatables-demo-server.herokuapp.com/'
   ngOnInit(): void {
