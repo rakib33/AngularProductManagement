@@ -18,9 +18,9 @@ import { OrderComponent } from './order/order.component';
 import { ReportsComponent } from './reports/reports.component';
 import { AddOrderComponent } from './order/add-order/add-order.component';
 import { NestedFormsComponent} from './nestedForms/nested-child.component';
+import { ModalModule } from 'ngx-bootstrap/modal';  
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-//'@ng-bootstrap/ng-bootstrap';
+
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin
@@ -41,6 +41,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   ],
   imports: [
     BrowserModule,
+    ModalModule.forRoot(),
+    
     AppRoutingModule,
     FullCalendarModule, // register FullCalendar with you app
     FormsModule,    

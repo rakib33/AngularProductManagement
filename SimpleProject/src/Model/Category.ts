@@ -6,3 +6,10 @@ export class Catagory{
     CreatedBy : string;
     CreatedDate : Date;
   } 
+
+export  class CatagoryResponse {
+    IsSuccess: boolean;
+    categories: Catagory[];
+    model: any;
+    message: string;
+  }

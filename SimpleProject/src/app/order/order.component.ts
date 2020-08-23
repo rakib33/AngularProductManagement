@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms'
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { OrderService } from '../../services/order-service.service';
-import {SelectList,kiniOrder} from '../../Model/ViewModel'
+import {SelectList,kiniOrder} from '../../Model/ViewModel';
 import { from } from 'rxjs';
 @Component({
   selector: 'app-order',
