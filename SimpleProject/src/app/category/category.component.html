@@ -23,12 +23,12 @@
           <button type="button" class="btn btn-primary" (click)="openModalWithClass(template)">  Add Category</button>  
         </div>
       </div>
-      <div>
-        
+       <!-- dataTable div -->
+      <div>        
         <table datatable [dtOptions]="dtOptions" class="row-border hover">
           <thead>
             <tr>
-              <th>ID</th>
+              <!-- <th>ID</th> -->
               <th>Name</th>
               <th>Status</th>
               <th></th>
@@ -36,7 +36,7 @@
           </thead>
           <tbody *ngIf="categoryList?.length != 0">
               <tr *ngFor="let item of categoryList; let i = index">
-                  <td>{{ i+1 }}</td>
+                  <!-- <td>{{ i+1 }}</td> -->
                   <td>{{ item.Name }}</td>
                   <td> {{item.Status }}</td>
                   <td>
@@ -46,7 +46,7 @@
                           </a>
                           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <!-- <button class="dropdown-item" data-toggle="modal" data-target="#exampleModal">Edit</button>  -->
-                            <button class="dropdown-item"  (click)="openModalWithClass(template)">Edit</button> 
+                            <button class="dropdown-item"  (click)="openModalFromEdit(template,item,i)">Edit</button> 
                             <a class="dropdown-item" href="#">Remove</a>
                           </div>
                          
@@ -62,11 +62,9 @@
         </table>
 
       </div>
-    </div>
-  </div>
-  <div>
-</div>
 
+    </div>
+  </div>  
 
 <ng-template #template>  
   <div class="modal-header">  
@@ -93,16 +91,22 @@
       <div class="row">
         <div class="col-md-3">Name</div>
         <div class="col-md-8">
-            <input type="text" formControlName="Name" class="form-control" id="Name">
+            <input type="text" formControlName="Name" class="form-control" id="Name" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">
+            <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
+              <div *ngIf="f.Name.errors.required">Name is required</div>
+          </div>
         </div>
       </div>
       <div class="row mt-2">
         <div class="col-md-3">Status</div>
         <div class="col-md-8">
-            <select id="Status" formControlName="Status" class="form-control">
+            <select id="Status" formControlName="Status" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Status.errors }">
                 <option>Available</option>
                 <option>Not Available</option>                
             </select>
+            <div *ngIf="submitted && f.Status.errors" class="invalid-feedback">
+              <div *ngIf="f.Status.errors.required">Status is required</div>
+          </div>
         </div>
     </div>
     <div class="row mt-2">

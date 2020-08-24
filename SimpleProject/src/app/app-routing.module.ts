@@ -12,6 +12,7 @@ import { from } from 'rxjs';
 
 const routes: Routes = [
   {path:'',redirectTo:'/dashboard',pathMatch:'full'},
+  {path:'KiniApi/Index',redirectTo:'/dashboard',pathMatch:'full'},
   {path:'dashboard',component:DashboardComponent},
   {path:'brand',component:BrandComponent},
   {path:'category',component:CategoryComponent},

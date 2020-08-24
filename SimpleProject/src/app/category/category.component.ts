@@ -35,17 +35,33 @@ export class CategoryComponent implements OnInit {
   categoryForm : FormGroup; 
   IsDisplay : string;
   Message : string;
-  constructor(private formBuilder: FormBuilder,private modalService: BsModalService,private catagoryService: CatagoryService) { 
-    this.categoryForm = this.formBuilder.group({
-      Id:"",
-      Name: "",
-      Status:"",
-      Description:""
-      });
+  submitted = false;
+ 
+ constructor(private formBuilder: FormBuilder,private modalService: BsModalService,private catagoryService: CatagoryService) { 
+      this.CreateForm(false, '');
       this.IsDisplay = 'none'; 
       this.Message = '';    
   } 
-  
+
+  CreateForm(isEdit, data){
+  if(isEdit == false){
+    this.categoryForm = this.formBuilder.group({
+      Id:['',Validators.required],
+      Name: ['',Validators.required],
+      Status:['',Validators.required],
+      Description:['',Validators.required]
+      });
+    }
+    else if(isEdit == true){
+      this.categoryForm = this.formBuilder.group({
+        Id:[data.Id,Validators.required],
+        Name: [data.Name,Validators.required],
+        Status:[data.Status,Validators.required],
+        Description:[data.Description,Validators.required]
+        });
+    }
+  }
+    
   config: ModalOptions = {
     backdrop: 'static',
     keyboard: false,
@@ -57,38 +73,55 @@ export class CategoryComponent implements OnInit {
       username: 'test'
     }
   };
-  openModalWithClass(template: TemplateRef<any>) {  
-     
+
+  openModalWithClass(template: TemplateRef<any>) {       
     this.modalRef = this.modalService.show(  
-      template,  
-      //Object.assign({}, { class: 'gray modal-lg' }
+      template,       
       this.config 
     );    
-    
-  
   } 
 
   openModalFromAdd(){
 
   }
-  openModalFromEdit(){
+  openModalFromEdit(template: TemplateRef<any>,controlValue,index){
 
+   this.CreateForm(true,controlValue);
+   this.modalRef = this.modalService.show(  
+    template,     
+    this.config 
+  );    
   }
+
   closeModal(){
     console.log('modal close');
-    
+    this.IsDisplay = 'none'; 
+    this.onReset();
     this.modalService.setDismissReason('close');
     this.modalService.hide(1);
   }
 
+  // convenience getter for easy access to form fields
+  get f() { return this.categoryForm.controls; }
 
+  
   //this is submitted from Form
   submitCategory(){
-    debugger;
-    this.categoryObj =  this.categoryForm.value;
-    let PostData = this.categoryForm.value;
+    this.submitted = true;
+    // stop here if form is invalid
+    // if (this.categoryForm.invalid) {
+    //     return;
+    // }
+ 
+    this.categoryObj =  this.categoryForm.value;    
     this.PostUpdateCatagory();
   }
+
+  onReset() {
+    this.submitted = false;
+    this.categoryForm.reset();
+    this.CreateForm(false,'');
+}
 
   dtOptions: any  = {};
   ngOnInit(): void {
@@ -157,10 +190,17 @@ export class CategoryComponent implements OnInit {
    },(error:any)=>{console.log(error),alert(error)})
   }
 
-  PostUpdateCatagory(){
-    debugger;
-  
+  PostUpdateCatagory(){ 
+   
     let response = new CatagoryResponse();
+    let IsEdit = 0;
+    let index ;
+    
+    if(this.categoryObj.Id ){
+      IsEdit = 1;
+      index = this.categoryList.indexOf(this.categoryObj);   
+    }
+
     this.catagoryService.SubmitTransaction(this.categoryObj)
     .subscribe((res) => {
       response = res;
@@ -169,13 +209,22 @@ export class CategoryComponent implements OnInit {
         this.IsDisplay = '0';     
         console.log(res.message);
       }else if(response.IsSuccess == true){
-        //this.GetCatagoryList();    
+        this.GetCatagoryList();    
         this.IsDisplay = '1'; 
-        if(response.model.Id !='')
-         this.categoryList.push(response.model);
+         
+        if(IsEdit == 1){
+          this.Message ="Update Success";
+           //this.categoryObj = response.model;
+           //this.categoryList[index] =  response.model;
+        } else{
+          this.Message ="Save Success";   
+          //this.categoryList.push(response.model);
+        }
       }   
       this.categoryList.push(response.model);
    },(error:any)=>{console.log(error)})
+
+    this.categoryObj = new Catagory();
   }
 
 

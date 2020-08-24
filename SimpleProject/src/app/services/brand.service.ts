@@ -10,13 +10,11 @@ import { CategoryComponent } from '../category/category.component';
 @Injectable({
   providedIn: 'root'
 })
-export class CatagoryService {
+export class BrandService {
+
   constructor(private httpClient: HttpClient) { }
-  
   getCategoryList(): Observable<CatagoryResponse>{
-    let getUrl = globalConstant.BaseUrl + 'GetCategory';
-    //return this.httpClient.get(getUrl); 
-  
+    let getUrl = globalConstant.BaseUrl + 'GetBrand';   
     return this.httpClient.get<CatagoryResponse>(getUrl).pipe(
               tap(data => console.log('All: ' + JSON.stringify(data))),
               catchError(this.handleError)
@@ -35,16 +33,14 @@ private handleError(err: HttpErrorResponse) {
 }
 
   SubmitTransaction(model: any): Observable<any> {
-    let postUrl = globalConstant.BaseUrl + 'SaveUpdateCategory';
+    let postUrl = globalConstant.BaseUrl + 'SaveUpdateBrand';
     let headers:{
       'content':'application/json',
       'content-type':"application/x-www-form-urlencoded"
     }
     return this.httpClient.post<any>(postUrl, model, 
-    {headers})
-      .pipe(
-        catchError(error => throwError(error.message || 'Server Error'))
-      );
+    {headers}).pipe(catchError(error => throwError(error.message || 'Server Error')));
   }
 
 }
+
