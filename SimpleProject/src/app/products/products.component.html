@@ -1,32 +1,196 @@
-<table datatable [dtOptions]="dtOptions" class="row-border hover">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>First name</th>
-        <th>Last name</th>
-      </tr>
-    </thead>
-    <tbody *ngIf="persons?.length != 0">
-        <tr *ngFor="let person of persons">
-            <td>{{ person.id }}</td>
-            <td>{{ person.firstName }}</td>
-            <td>{{ person.lastName }}</td>
-            <td>
-                <div class="dropdown">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Action
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <a class="dropdown-item" href="#">Edit</a>
-                      <a class="dropdown-item" href="#">Remove</a>
-                    </div>
-                  </div>
-            </td>
-        </tr>
-    </tbody>
-    <tbody *ngIf="persons?.length == 0">
-      <tr>
-        <td colspan="3" class="no-data-available">No data!</td>
-      </tr>
-    <tbody>
-  </table>
+<div class="row mt-4">
+  <div class="col-md-12">
+      <div style="background-color: #F1F1F1; height: 35px; padding:.30rem;">
+          <div class="row">
+              <a routerLink="/dashboard" href="#" style="color: black; padding-left: 20px;">Home</a>
+              <p style="padding-left: 15px;">/</p>
+              <a href="product" style="color: black; padding-left: 20px;">Product</a>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header">
+    Manage Product
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="card-title col-md-12 text-right">      
+        <button type="button" class="btn btn-primary" (click)="openModalWithClass(template)">  Add Product</button>  
+      </div>
+    </div>
+     <!-- dataTable div -->
+    <div>        
+      <table datatable [dtOptions]="dtOptions" class="row-border hover">
+        <thead>
+          <tr>
+            <th>Sl No</th>
+            <th>Product Name</th>
+            <th>Rate</th>
+            <th>Quantity</th>
+            <th>Brand Name</th>
+            <th>Category Name</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="productList?.length != 0">
+            <tr *ngFor="let person of productList; let i = index">
+                <td>{{ i +1 }}</td>
+                <td>{{ person.Name }}</td>
+                <td>{{ person.CostPrice }}</td>
+                <td>{{ person.ProductQuantity }}</td>
+                <td>{{ person.BrandName }}</td>
+                <td>{{ person.CategoryName }}</td>
+                <td>{{ person.Status }}</td>
+                <td>
+                    <div class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Action
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <button class="dropdown-item"  (click)="openModalFromEdit(template,person,i)">Edit</button> 
+                          <a class="dropdown-item" href="#">Remove</a>
+                        </div>
+                      </div>
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="productList?.length == 0">
+          <tr>
+            <td colspan="3" class="no-data-available">No data!</td>
+          </tr>
+        <tbody>
+      </table> 
+
+    </div>
+
+  </div>
+</div>  
+
+<ng-template #template>  
+<div class="modal-header">  
+  <h4 class="modal-title pull-left">Product</h4>  
+  <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">  
+    <span aria-hidden="true">×</span>  
+  </button>  
+</div>  
+<div class="modal-body">  
+  <!-- Success Alert -->
+  <div *ngIf="IsDisplay =='1'" class="alert alert-success alert-dismissible fade show">
+    <strong>Success!</strong> {{Message}}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+  </div>
+  <!-- Error Alert -->
+  <div *ngIf="IsDisplay=='0'" class="alert alert-danger alert-dismissible fade show">
+    <strong>Error!</strong> {{Message}}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+  </div>
+  
+  <form style="width: 100%;" [formGroup]="productForm" (ngSubmit)="submitProduct()">
+    
+    <input type="text" hidden formControlName="Id" class="form-control" id="Id">
+    <div class="row">
+      <div class="col-md-3">Product Name</div>
+      <div class="col-md-8">
+          <input type="text" formControlName="Name" class="form-control" id="Name" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">
+          <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
+            <div *ngIf="f.Name.errors.required">Name is required</div>
+          </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-md-3">Quantity</div>
+      <div class="col-md-8">
+        <input type="number" formControlName="ProductQuantity" class="form-control" id="ProductQuantity" [ngClass]="{ 'is-invalid': submitted && f.ProductQuantity.errors }">
+        <div *ngIf="submitted && f.ProductQuantity.errors" class="invalid-feedback">
+          <div *ngIf="f.ProductQuantity.errors.required">Quantity is required</div>
+        </div>
+      </div>
+   </div>
+
+
+   <div class="row mt-2">
+    <div class="col-md-3">Rate</div>
+    <div class="col-md-8">
+      <input type="number" formControlName="CostPrice" class="form-control" id="CostPrice" [ngClass]="{ 'is-invalid': submitted && f.CostPrice.errors }">
+      <div *ngIf="submitted && f.CostPrice.errors" class="invalid-feedback">
+        <div *ngIf="f.CostPrice.errors.required">Rate is required</div>
+      </div>
+    </div>
+   </div>
+
+
+   <div class="row mt-2">
+    <div class="col-md-3">Brand</div>
+    <div class="col-md-8">
+        <select id="Brand_Id" formControlName="Brand_Id" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Brand_Id.errors }">
+          <option *ngFor="let order of brandList; let i = index" [value]="order.Id">
+            {{order.Name}}
+          </option>                
+        </select>
+      <div *ngIf="submitted && f.Brand_Id.errors" class="invalid-feedback">
+        <div *ngIf="f.Brand_Id.errors.required">Brand is required</div>
+      </div>
+    </div>
+</div>
+
+<div class="row mt-2">
+  <div class="col-md-3">Category</div>
+  <div class="col-md-8">
+      <select id="Catagory_Id" formControlName="Catagory_Id" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Catagory_Id.errors }">
+        <option *ngFor="let order of categoryList; let i = index" [value]="order.Id">
+          {{order.Name}}
+        </option>                
+      </select>
+    <div *ngIf="submitted && f.Catagory_Id.errors" class="invalid-feedback">
+      <div *ngIf="f.Catagory_Id.errors.required">Categoty is required</div>
+    </div>
+
+  </div>
+</div>
+    <div class="row mt-2">
+      <div class="col-md-3">Status</div>
+      <div class="col-md-8">
+          <select id="Status" formControlName="Status" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Status.errors }">
+              <option>Available</option>
+              <option>Not Available</option>                
+          </select>
+         
+        <div *ngIf="submitted && f.Status.errors" class="invalid-feedback">
+          <div *ngIf="f.Status.errors.required">Status is required</div>
+        </div>
+
+      </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-md-3">Description</div>
+    <div class="col-md-8">
+      <textarea formControlName="Description" class="form-control" id="Description"></textarea>
+    </div>
+  </div>
+<div class="row mt-2">
+  <div class="col-md-3">Product Image</div>
+  <div class="col-md-8">
+    <span style="color:red;" *ngIf="message">{{message}}</span>
+    <input #file type="file" formControlName="file" accept='image/*' (change)="preview(file.files,$event.target.files)" [ngClass]="{ 'is-invalid': submitted && f.file.errors }"/>
+    <div *ngIf="submitted && f.file.errors" class="invalid-feedback">
+      <div *ngIf="f.file.errors.required">file is required</div>
+    </div>
+
+
+    
+    <img [src]="imgURL" height="200" *ngIf="imgURL" style="border:1px solid">
+  </div>
+</div>
+  <div class="modal-footer">    
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+    <button type="submit" class="btn btn-primary">Save changes</button>
+   </div>
+  </form>
+</div>  
+</ng-template> 
+
+

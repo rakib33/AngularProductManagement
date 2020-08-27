@@ -7,21 +7,24 @@ import { catchError, map,filter,tap } from 'rxjs/operators';
 import {Catagory ,CatagoryResponse} from '../../Model/Category';
 import { CategoryComponent } from '../category/category.component';
 
+
 @Injectable({
   providedIn: 'root'
 })
-export class CatagoryService {
+export class ProductService {
+
   constructor(private httpClient: HttpClient) { }
-  
-  getCategoryList(): Observable<CatagoryResponse>{
-    let getUrl = globalConstant.BaseUrl + 'GetCategory';
+
+
+  getProductList(): Observable<CatagoryResponse>{
+    let getUrl = globalConstant.BaseUrl + 'GetProduct';
     return this.httpClient.get<CatagoryResponse>(getUrl).pipe(
               tap(data => console.log('All: ' + JSON.stringify(data))),
               catchError(this.handleError)
           );
   }
 
-private handleError(err: HttpErrorResponse) {
+  private handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
         errorMessage = `An error occurred: ${err.error.message}`;
@@ -33,7 +36,7 @@ private handleError(err: HttpErrorResponse) {
 }
 
   SubmitTransaction(model: any): Observable<any> {
-    let postUrl = globalConstant.BaseUrl + 'SaveUpdateCategory';
+    let postUrl = globalConstant.BaseUrl + 'SaveProduct';
     let headers:{
       'content':'application/json',
       'content-type':"application/x-www-form-urlencoded"
@@ -44,5 +47,6 @@ private handleError(err: HttpErrorResponse) {
         catchError(error => throwError(error.message || 'Server Error'))
       );
   }
+
 
 }
