@@ -51,8 +51,8 @@ CreateForm(isEdit, data){
       Name: ['',[Validators.required, Validators.minLength(50)]],
       Status:['',Validators.required],
       Description:['',[Validators.required, Validators.minLength(150)]],
-      ProductQuantity:['',[Validators.required, Validators.minLength(150),Number]],
-      CostPrice : ['',[Validators.required, Validators.minLength(150),Number]],
+      ProductQuantity:['',[Validators.required, Validators.minLength(20),Number]],
+      CostPrice : ['',[Validators.required, Validators.minLength(20),Number]],
       Catagory_Id : ['',Validators.required],
       Brand_Id : ['',Validators.required],
       file: ['', [Validators.required]],
@@ -122,7 +122,7 @@ CreateForm(isEdit, data){
      }
 
   GetProductList(){
-    debugger;
+  
     let response = new CatagoryResponse();
     this.productService.getProductList()
     .subscribe((res) => {

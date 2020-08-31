@@ -4,4 +4,5 @@ export class Dashboard {
     TotalOrder: number;
     LowCost: number;
     SelectedDate: any;
+    IsRevenewTrue:boolean;
 }

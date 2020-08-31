@@ -1,53 +1,76 @@
-
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <div style="background-color: #F1F1F1; height: 35px; padding:.30rem;">
-                <div class="row">
-                    <a routerLink="/dashboard" href="#" style="color: black; padding-left: 20px;">Home</a>
-                    <p style="padding-left: 15px;">/</p>
-                    <a style="color: black; padding-left: 20px;">Order</a>
-                    <p style="padding-left: 15px;">/</p>
-                    <a href="order/add-order" style="color: black; padding-left: 20px;">Add Order</a>
-
-                </div>
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div style="background-color: #F1F1F1; height: 35px; padding:.30rem;">
+            <div class="row">
+                <a routerLink="/dashboard" href="#" style="color: black; padding-left: 20px;">Home</a>
+                <p style="padding-left: 15px;">/</p>
+                <a style="color: black; padding-left: 20px;">Order</a>
+                <p style="padding-left: 15px;">/</p>
+                <a href="order/add-order" style="color: black; padding-left: 20px;">Add Order</a>
+                <!-- <button (click)="generatePdf('open')">Open PDF</button> -->
             </div>
         </div>
     </div>
+</div>
+<div class="card mb-4">
+    <div class="card-header">
+        Manage Order
+    </div>
+    <div class="card-body">
+        <div class="row mt-4">
 
-    <div class="row mt-4">
-        <form style="width: 100%;" [formGroup]="nestedForm" (ngSubmit)="submitHandler()">
-            <div class="row">
-                <div class="col-md-12">
-                    <div style="border-style:solid; border-width: .2rem; border-color: #F1F1F1;">
-                        <div style="background-color: #F1F1F1; height: 30px;">
-                            Add Order
-                        </div>
-                        <!-- Order Date/Invoice Date -->
-                        <div class="row" style="padding-top: 10px; padding-left: 10px; padding-right: 10px;">
-                            <div class="col-md-3">
-                                <div class="form-group" style="float: right; padding-top: .35rem;">
-                                    <label for="InvoiceDate">Order Date</label>
+<!-- Success Alert -->
+<div *ngIf="IsDisplay =='1'" class="alert alert-success alert-dismissible fade show">
+    <strong>Success!</strong> {{Message}}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+  </div>
+  <!-- Error Alert -->
+  <div *ngIf="IsDisplay=='0'" class="alert alert-danger alert-dismissible fade show">
+    <strong>Error!</strong> {{Message}}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+  </div>
+
+
+
+            <form style="width: 100%;" [formGroup]="nestedForm" (ngSubmit)="submitHandler()">
+                <div class="row">
+                    <div class="col-md-6">
+                             <!-- Order Date/Invoice Date -->
+                            <div class="row" style="padding-top: 10px; padding-left: 10px; padding-right: 10px;">
+                                <div class="col-md-3">
+                                    <div class="form-group" style="float: right; padding-top: .35rem;">
+                                        <label for="InvoiceDate">Order Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <input type="date" formControlName="InvoiceDate" class="form-control"
+                                            id="InvoiceDate" [ngClass]="{ 'is-invalid': submitted && f.InvoiceDate.errors }">
+                                            <div *ngIf="submitted && f.InvoiceDate.errors" class="invalid-feedback">
+                                                <div *ngIf="f.InvoiceDate.errors.required">Date is required</div>
+                                              </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <input type="date" formControlName="InvoiceDate" class="form-control" id="InvoiceDate">
+                            <!-- Client Name/Customer Name -->
+                            <div class="row" style=" padding-left: 10px; padding-right: 10px;">
+                                <div class="col-md-3">
+                                    <div class="form-group" style="float: right; padding-top: .35rem;">
+                                        <label for="CustomerName">Client Name</label>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- Client Name/Customer Name -->
-                        <div class="row" style=" padding-left: 10px; padding-right: 10px;">
-                            <div class="col-md-3">
-                                <div class="form-group" style="float: right; padding-top: .35rem;">
-                                    <label for="CustomerName">Client Name</label>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <input type="text" formControlName="CustomerName" class="form-control"
+                                            id="CustomerName" [ngClass]="{ 'is-invalid': submitted && f.CustomerName.errors }">
+                                            <div *ngIf="submitted && f.CustomerName.errors" class="invalid-feedback">
+                                                <div *ngIf="f.CustomerName.errors.required">Client Name is required</div>
+                                              </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <input type="text" formControlName="CustomerName" class="form-control" id="CustomerName">
-                                </div>
-                            </div>
-                        </div>
+                            </div>                            
+                    </div>
+                    <div class="col-md-6">
                         <!-- Client Phone No -->
                         <div class="row" style=" padding-left: 10px; padding-right: 10px;">
                             <div class="col-md-3">
@@ -57,7 +80,10 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="form-group">
-                                    <input formControlName="Phone" type="text" class="form-control" id="Phone">
+                                    <input formControlName="Phone" type="text" class="form-control" id="Phone" [ngClass]="{ 'is-invalid': submitted && f.Phone.errors }">
+                                    <div *ngIf="submitted && f.Phone.errors " class="invalid-feedback">
+                                        <div *ngIf="f.Phone.errors.required">Phone is required</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -70,159 +96,188 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="form-group">
-                                    <input formControlName="Customer_Id" type="text" class="form-control" id="Customer_Id">
+                                    <input formControlName="Customer_Id" type="text" class="form-control"
+                                        id="Customer_Id" [ngClass]="{ 'is-invalid': submitted && f.Customer_Id.errors }">
+                                        <div *ngIf="submitted && f.Customer_Id.errors" class="invalid-feedback">
+                                            <div *ngIf="f.Customer_Id.errors.required">Customer is required</div>
+                                        </div>
                                 </div>
                             </div>
-                        </div>                     
+                        </div>
 
                     </div>
-                </div>
-            </div>
 
-            <!-- add button row -->
-            <div class="row">
-                <div class="col-md-12">                    
-                    <hr>
-                    <button (click)="addAddress()">+ Add</button>
+
                 </div>
+
+                <!-- add button row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                        <button class="btn btn-primary" (click)="addAddress();$event.preventDefault()">+ Add</button>
+                    </div>
+                </div>
+                <!-- end add button row -->
+
+                <!-- nested form Header -->
+                <div class="row">
+                    <div class="col-md-1"><strong>Sl No</strong></div>
+                    <div class="col-md-3 text-center"><strong>Product</strong></div>
+                    <div class="col-md-3 text-center"><strong>Rate</strong></div>
+                    <div class="col-md-2 text-center"><strong>Quantity</strong></div>
+                    <div class="col-md-2 text-center"><strong>Total</strong></div>
+                    <div class="col-md-1 text-center"></div>
+                </div>
+                <!-- end form header -->
+
+                <!-- form array nested Element -->
+
+ <!-- form array nested Element -->
+ <div class="row" formArrayName="Purchases">
+    <div class="col-md-12" *ngFor="let group of addPurchaseArray.controls; let i = index;" [formGroupName]="i">
+        <div class="row mt-2">
+            <div class="col-md-1">{{i}}</div>
+            <div class="col-3">
+                <!-- [(ngModel)]="selectedProduct" -->
+                <select (change)='onProductSelected($event,i,group)' id="Product_Id"
+                    formControlName="Product_Id" class="form-control">
+                    <option selected [ngValue]="null">Choose..</option>
+                    <option *ngFor="let product of ProductList; let i = index" [value]="product.Id">
+                        {{product.Name}}
+                    </option>
+                </select>
             </div>
-            <!-- end add button row -->
+            <div class="col-3">
+                <input disabled type="text" formControlName="BuyRate" class="form-control" id="BuyRate">
+            </div>
+            <div class="col-2">
+                <input type="text" formControlName="Qty" (keyup)='onQtyChanged($event,group)' class="form-control" id="Qty">
+            </div>
+            <div class="col-2">
+                <input disabled type="text" formControlName="BuyTotal" class="form-control" id="BuyTotal">
+            </div>
+            <div class="col-1">                
+                <button class="btn btn-sm btn-danger" (click)="removeAddress(i)"><strong>-</strong></button>
+            </div>
             
-            <!-- nested form Header -->
-            <div class="row">
-                <div class="col-md-1"><strong>Sl No</strong></div>
-                <div class="col-md-3 text-center"><strong>Product</strong></div>
-                <div class="col-md-3 text-center"><strong>Rate</strong></div>
-                <div class="col-md-2 text-center"><strong>Quantity</strong></div>
-                <div class="col-md-2 text-center"><strong>Total</strong></div>
-                <div class="col-md-1 text-center"></div>
-              </div>
-              <!-- end form header -->
+        </div>                
+    </div> 
+</div>
 
-            <!-- form array nested Element -->
-            <div class="row" formArrayName="Purchases">
-                <div class="col-md-12" *ngFor="let group of addPurchaseArray.controls; let i = index;" [formGroupName]="i">
-                    <div class="row">
-                        <div class="col-md-1">{{i}}</div>
-                        <div class="col-3">
-                            <!-- [(ngModel)]="selectedProduct" -->
-                            <select (change)='onProductSelected($event,i,group)' id="Product_Id"
-                                formControlName="Product_Id" class="form-control">
-                                <option selected [ngValue]="null">Choose..</option>
-                                <option *ngFor="let order of ProductList; let i = index" [value]="order.id">
-                                    {{order.name}}
-                                </option>
-                            </select>
+
+                <!-- form description part -->
+                <div class="row mt-4 mb-4">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-3">Sub Total</div>
+                            <div class="col-md-8">
+                                <input disabled type="number" formControlName="Total" class="form-control" id="Total" [ngClass]="{ 'is-invalid': submitted && f.Total.errors }">
+                                <div *ngIf="submitted && f.Total.errors" class="invalid-feedback">
+                                    <div *ngIf="f.Total.errors.required">Total is required</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-3">
-                            <input type="text" formControlName="BuyRate" class="form-control" id="BuyRate">
+
+                        <div class="row">
+                            <div class="col-md-3">Vat</div>
+                            <div class="col-md-8">
+                                <input type="number" (keyup)='onVatChanged($event)' formControlName="OtherExpense" class="form-control"
+                                    id="OtherExpense">                            
+                            </div>
                         </div>
-                        <div class="col-2">
-                            <input type="text" formControlName="Qty" (keyup)='onQtyChanged($event,group)' class="form-control" id="Qty">
+
+                        <div class="row">
+                            <div class="col-md-3">Discount</div>
+                            <div class="col-md-8">
+                                <input type="number" (keyup)='onDiscountChanged($event)' formControlName="Discount" class="form-control" id="Discount">                              
+                            </div>
                         </div>
-                        <div class="col-2">
-                            <input type="text" formControlName="BuyTotal" class="form-control" id="BuyTotal">
+
+                        <div class="row">
+                            <div class="col-md-3">Total Amount</div>
+                            <div class="col-md-8">
+                                <input disabled type="text" formControlName="Payable" class="form-control" id="Payable" [ngClass]="{ 'is-invalid': submitted && f.Payable.errors }">
+                                <div *ngIf="submitted && f.Payable.errors" class="invalid-feedback">
+                                    <div *ngIf="f.Payable.errors.required">Total Amount is required</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-1">
-                            <button (click)="removeAddress(i)">Remove</button>
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-8 mt-4" style="height: 30px;">
+                                <span>
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                </span>
+                                <span>
+                                    <button class="btn btn-secondary" type="reset" (click)="onReset()">Reset</button>
+                                </span>
+
+                            </div>
                         </div>
-                        
-                    </div>                
-                </div> 
-            </div>
-            <!-- End nested form array -->
-            
-            <!-- form description part -->
-            <div class="row mt-4 mb-4">
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-3">Sub Total</div>
-                        <div class="col-md-8">
-                            <input type="text" formControlName="Total" class="form-control" id="Total">
-                        </div>
+
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-3">Vat(0%)</div>
-                        <div class="col-md-8">
-                            <input type="text" formControlName="OtherExpense" class="form-control" id="OtherExpense">
-                        </div>
-                    </div>
+                    <!-- right side block -->
+                    <div class="col-md-6">
 
-                    <div class="row">
-                        <div class="col-md-3">Discount</div>
-                        <div class="col-md-8">
-                            <input type="text" formControlName="Discount" class="form-control" id="Discount">
+                        <div class="row">
+                            <div class="col-md-3">Paid Amount</div>
+                            <div class="col-md-8">
+                                <input type="number" (keyup)='onPaidChanged($event)' formControlName="Paid" class="form-control" id="Paid" [ngClass]="{ 'is-invalid': submitted && f.Paid.errors }">
+                                <div *ngIf="submitted && f.Paid.errors" class="invalid-feedback">
+                                    <div *ngIf="f.Paid.errors.required">Paid Amount is required</div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-3">Total Amount</div>
-                        <div class="col-md-8">
-                            <input type="text" formControlName="Payable" class="form-control" id="Payable">
+                        <div class="row">
+                            <div class="col-md-3">Due Amount</div>
+                            <div class="col-md-8">
+                                <input disabled type="text" formControlName="Due" class="form-control" id="Due">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-8 mt-4" style="height: 30px;">
-                            <span>
-                                <button type="submit">Submit</button>
-                            </span>
+                        <div class="row">
+                            <div class="col-md-3">Payment Type</div>
+                            <div class="col-md-8">
+                                <select id="PaymentType" formControlName="PaymentType" class="form-control" [ngClass]="{'is-invalid': submitted && f.PaymentType.errors }">
+                                    <option>Cash</option>
+                                    <option>Cheque</option>
+                                    <option>Credit Card</option>
+                                </select>
+                                <div *ngIf="submitted && f.PaymentType.errors" class="invalid-feedback">
+                                    <div *ngIf="f.PaymentType.errors.required">Payment Type is required</div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="row">
+                            <div class="col-md-3">Status</div>
+                            <div class="col-md-8">
+                                <select id="Status" formControlName="Status" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Status.errors }">
+                                    <option>Full Payment</option>
+                                    <option>Advance Payment</option>
+                                    <option>No Payment</option>
+                                </select>
+                                <div *ngIf="submitted && f.Status.errors" class="invalid-feedback">
+                                    <div *ngIf="f.Status.errors.required">Status is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">Description</div>
+                            <div class="col-md-8">
+                                <textarea formControlName="Description" class="form-control"></textarea>
+                            </div>
                         </div>
                     </div>
+                    <!-- end right side block -->
+
 
                 </div>
+                <!-- End form description Part -->
 
-                <!-- right side block -->
-                <div class="col-md-6">
+            </form>
+        </div>
 
-                    <div class="row">
-                        <div class="col-md-3">Paid Amount</div>
-                        <div class="col-md-8">
-                            <input type="text" formControlName="Paid" class="form-control" id="Paid">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">Due Amount</div>
-                        <div class="col-md-8">
-                            <input type="text" formControlName="Due" class="form-control" id="Due">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">Payment Type</div>
-                        <div class="col-md-8">
-                            <select id="PaymentType" formControlName="PaymentType" class="form-control">
-                                <option>Cash</option>
-                                <option>Cheque</option>
-                                <option>Credit Card</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">Status</div>
-                        <div class="col-md-8">
-                            <select id="Status" formControlName="Status" class="form-control">
-                                <option>Full Payment</option>
-                                <option>Advance Payment</option>
-                                <option>No Payment</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                    <div class="col-md-3">Description</div>
-                    <div class="col-md-8">
-                        <textarea formControlName="Description" class="form-control"></textarea>
-                    </div>
-                    </div>
-                </div>
-                <!-- end right side block -->
-
-
-			</div>
-            <!-- End form description Part -->
-
-        </form>
     </div>
+</div>

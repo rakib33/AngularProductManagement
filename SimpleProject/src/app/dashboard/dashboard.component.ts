@@ -12,11 +12,16 @@ import { Dashboard } from '../../Model/Dashboard';
   ]
 })
 export class DashboardComponent implements OnInit {
-  dashBoard = {};
+  dashBoard : any = {};
   CurrentDate = Date.now();
   DashBoardAPI = globalConstant.BaseUrl + 'GetDashBoardData';
   constructor(private http: HttpClient) { 
-    this.dashBoard = new Dashboard();
+    // this.dashBoard = new Dashboard();
+    this.dashBoard.IsRevenewTrue = false;
+    this.dashBoard.LowCost= 0;
+    this.dashBoard.TotalProduct=0;
+    this.dashBoard.TotalRevenue =0;
+    this.dashBoard.TotalOrder =0;
   }
 
   calendarOptions: CalendarOptions = {
@@ -61,9 +66,9 @@ export class DashboardComponent implements OnInit {
        let Data = res;
         if(res.IsSuccess == true){
           this.dashBoard = res.data;
-          alert('Success');
+         // alert('Success');
         }else{
-          alert(res.message);
+          alert('data not retrive'+ res.message);
         }
        console.log('fromGet',this.dashBoard);
     })

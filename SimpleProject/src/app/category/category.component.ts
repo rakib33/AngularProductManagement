@@ -134,41 +134,7 @@ export class CategoryComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 10,
       serverSide: true,
-      processing: true,
-      // ajax: (dataTablesParameters: any, callback) => {
-
-      //   //return this.httpClient.get(getUrl); 
-      //   this.catagoryService.getCategoryList()
-      //   .subscribe((res) => {
-      //     response = res;
-      //     if(res.IsSuccess == false){
-      //       alert(res.message);
-      //       console.log(res.message);
-      //     }else{
-      //       this.categoryList = res.categories;
-          
-      //     callback({
-      //       recordsTotal: response.categories.length,
-      //       recordsFiltered: response.categories.length,
-      //       data: []
-      //     });
-      //   }
-      //  },(error:any)=>{console.log(error),alert(error)})
-
-      //   // that.http
-      //   //   .post<DataTablesResponse>(
-      //   //     'https://angular-datatables-demo-server.herokuapp.com/',
-      //   //     dataTablesParameters, {}
-      //   //   ).subscribe(resp => {
-      //   //     that.persons = resp.data;
-
-      //   //     callback({
-      //   //       recordsTotal: resp.recordsTotal,
-      //   //       recordsFiltered: resp.recordsFiltered,
-      //   //       data: []
-      //   //     });
-      //   //   });
-      // },
+      processing: true,     
       recordsTotal: this.categoryList.length,
       recordsFiltered: this.categoryList.length,
       columns: [{ data: 'Id' }, { data: 'Name' }, { data: 'Status' },{data:'Description'},{data:'CreatedBy'},{data:'CreatedDate'}]

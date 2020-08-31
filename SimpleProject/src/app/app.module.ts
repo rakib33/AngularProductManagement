@@ -19,6 +19,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { AddOrderComponent } from './order/add-order/add-order.component';
 import { NestedFormsComponent} from './nestedForms/nested-child.component';
 import { ModalModule } from 'ngx-bootstrap/modal';  
+import { DatePipe } from '@angular/common';
 
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -51,7 +52,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     HttpClientModule,
     //NgbModule // problem blank page display
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

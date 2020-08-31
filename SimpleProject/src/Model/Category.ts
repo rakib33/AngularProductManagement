@@ -13,10 +13,11 @@ export  class CatagoryResponse {
     products : Product[];
     model: any;
     message: string;
+    InvoiceNo: string;
   }
 
 export class Product{
-  Id : number;
+  Id : string;
   Name : string;
   Description : string;
   Status : string;
@@ -29,3 +30,30 @@ export class Product{
   BrandName: string;
   CategoryName : string;
 }  
+
+export class Invoice{
+  InvoiceDate: Date; //order date
+  CustomerName: string; //ClientName
+  Phone: number; //Contact
+  Customer_Id: string; //Supplier Id, from dropdown
+  InvoiceNo: string;
+  Total:number; //sub total
+  OtherExpense: number; // Vat
+  Discount:number;
+  Payable :number;// Total Amount or Grand Total
+  Paid:number;
+  Due:number;
+  Description:string;
+  PaymentType:string;
+  Status:string;
+  profilePic:File;
+  Purchases: Purchase[];
+}
+
+export class Purchase{
+  Qty:number;
+  BuyRate:number;
+  BuyTotal:number;
+  Product_Id:number;
+  ProductName:string;
+}
