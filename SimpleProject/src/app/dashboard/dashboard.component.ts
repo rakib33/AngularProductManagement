@@ -27,10 +27,10 @@ export class DashboardComponent implements OnInit {
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     dateClick: this.handleDateClick.bind(this), // bind is important!
-    events: [
-      { title: 'event 1', date: '2019-04-01' },
-      { title: 'event 2', date: '2019-04-02' }
-    ]
+    // events: [
+    //   { title: 'event 1', date: '2019-04-01' },
+    //   { title: 'event 2', date: '2019-04-02' }
+    // ]
   };
 
   handleDateClick(arg) {
@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit {
      //const headers = { 'Authorization': 'Bearer my-token', 'My-Custom-Header': 'foobar' }
      const body = { selectedDate: selectedDate }
      const headers = {'Content-Type':'application/json', 'Access-Control-Allow-Origin': '*' }
-     this.DashBoardAPI += "?selectedDate="+selectedDate
+     this.DashBoardAPI =globalConstant.BaseUrl + "GetDashBoardData?selectedDate="+selectedDate
 	
 																							 
      this.http.get<any>(this.DashBoardAPI).subscribe(res => {

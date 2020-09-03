@@ -11,6 +11,7 @@ export  class CatagoryResponse {
     IsSuccess: boolean;
     categories: Catagory[];
     products : Product[];
+    invoiceList: Invoice[];
     model: any;
     message: string;
     InvoiceNo: string;
@@ -33,6 +34,7 @@ export class Product{
 
 export class Invoice{
   InvoiceDate: Date; //order date
+  StrInvoiceDate: string;
   CustomerName: string; //ClientName
   Phone: number; //Contact
   Customer_Id: string; //Supplier Id, from dropdown
@@ -47,6 +49,8 @@ export class Invoice{
   PaymentType:string;
   Status:string;
   profilePic:File;
+  TotalPurchase : number;
+  Id: string;
   Purchases: Purchase[];
 }
 

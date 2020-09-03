@@ -8,12 +8,14 @@ import { ProductsComponent } from './products/products.component';
 import { ReportsComponent } from './reports/reports.component';
 import { AddOrderComponent } from './order/add-order/add-order.component';
 import { NestedFormsComponent } from './nestedForms/nested-child.component';
+import { ManageOrderComponent } from './order/manage-order/manage-order.component';
 import { from } from 'rxjs';
 
 const routes: Routes = [
   {path:'',redirectTo:'/dashboard',pathMatch:'full'},
   {path:'KiniApi/Index',redirectTo:'/dashboard',pathMatch:'full'},
   {path:'dashboard',component:DashboardComponent},
+  {path:'manage-order',component:ManageOrderComponent},
   {path:'brand',component:BrandComponent},
   {path:'category',component:CategoryComponent},
   {path:'products',component:ProductsComponent},

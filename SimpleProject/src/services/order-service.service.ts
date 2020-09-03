@@ -4,10 +4,11 @@ import { globalConstant } from '../Model/appVariable';
 import {SelectList,kiniOrder} from '../Model/ViewModel';
 import { data } from 'jquery';
 import { Observable ,throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Invoice } from 'src/Model/Category';
+import { catchError,map,filter,tap } from 'rxjs/operators';
 
-// import 'url-search-params-polyfill';
+import { Catagory , CatagoryResponse, Invoice } from '../Model/Category';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,6 @@ import { Invoice } from 'src/Model/Category';
 //https://www.itsolutionstuff.com/post/angular-http-post-request-exampleexample.html
 export class OrderService {
   private url = globalConstant.BaseUrl + 'SaveOrder'
-  //'http://jsonplaceholder.typicode.com/posts';
    
   constructor(private httpClient: HttpClient) { }
   
@@ -23,6 +23,29 @@ export class OrderService {
     return this.httpClient.get(this.url);
   }
   
+
+  getInvoiceList(): Observable<CatagoryResponse>{
+    let getUrl = globalConstant.BaseUrl + 'GetOrderInvoice';
+    return this.httpClient.get<CatagoryResponse>(getUrl);
+    // .pipe(
+    //           tap(data => console.log('All: ' + JSON.stringify(data))),
+    //           catchError(this.handleError)              
+    //       );
+  }
+
+  
+private handleError(err: HttpErrorResponse) {
+  debugger;
+    let errorMessage = '';
+    if (err.error instanceof ErrorEvent) {
+        errorMessage = `An error occurred: ${err.error.message}`;
+    } else {
+        errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
+}
+
 
   SubmitTransaction(model: Invoice): Observable<any> {
     let getUrl = globalConstant.BaseUrl + 'SaveOrder';
@@ -36,14 +59,21 @@ export class OrderService {
         catchError(error => throwError(error.message || 'Server Error'))
       );
   }
+  SavePayment(model: Invoice): Observable<any> {
+    let getUrl = globalConstant.BaseUrl + 'PaymentOrder';
+    let headers:{
+        'content':'application/json',
+        'content-type':"application/x-www-form-urlencoded"
+      }
+    return this.httpClient.post<any>(getUrl, model, 
+    {headers})
+      .pipe(
+        catchError(error => throwError(error.message || 'Server Error'))
+      );
+  }
 
   errorHandler(error: HttpErrorResponse) {
     return throwError(error.message || "server error.");
-  }
-
-  createTest2(){   
-    let kiniOrder = {"Total":"10"};
-    return this.httpClient.post('http://localhost:55171/kiniApi/SaveOrderTest2',JSON.stringify({Total:10}));
   }
 
 }

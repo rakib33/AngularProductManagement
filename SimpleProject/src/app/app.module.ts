@@ -20,6 +20,7 @@ import { AddOrderComponent } from './order/add-order/add-order.component';
 import { NestedFormsComponent} from './nestedForms/nested-child.component';
 import { ModalModule } from 'ngx-bootstrap/modal';  
 import { DatePipe } from '@angular/common';
+import { ManageOrderComponent } from './order/manage-order/manage-order.component';
 
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -38,7 +39,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     OrderComponent,
     ReportsComponent,
     AddOrderComponent,
-    NestedFormsComponent
+    NestedFormsComponent,
+    ManageOrderComponent
   ],
   imports: [
     BrowserModule,

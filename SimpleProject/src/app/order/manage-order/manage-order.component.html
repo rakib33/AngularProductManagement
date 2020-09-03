@@ -1,0 +1,146 @@
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div style="background-color: #F1F1F1; height: 35px; padding:.30rem;">
+            <div class="row">
+                <a routerLink="/dashboard" href="#" style="color: black; padding-left: 20px;">Home</a>
+                <p style="padding-left: 15px;">/</p>
+                <a href="manage-order" style="color: black; padding-left: 20px;">Manage Order</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header">
+    Invoice List
+  </div>
+  <div class="card-body">
+    <!-- dataTable div -->
+     <div>        
+      <table datatable [dtOptions]="dtOptions" class="row-border hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Order Date</th>
+            <th>Client Name</th>
+            <th>Contact</th>
+            <th>Total Order Item</th>
+            <th>Total Amount</th>
+            <th>Paid</th>
+            <th>Due</th>
+            <th>Payment Status</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="invoiceList?.length != 0">
+            <tr *ngFor="let item of invoiceList; let i = index">
+                <td> {{ i+1 }} </td>
+                <td> {{ item.StrInvoiceDate }}</td>
+                <td> {{item.CustomerName }}</td>
+                <td> {{item.Phone }}</td>
+                <td> {{item.TotalPurchase }}</td>
+                <td> {{item.Payable }}</td>
+                <td> {{item.Paid}}</td>
+                <td> {{item.Due}}</td>
+                <td> {{item.Status}} </td>
+                <td>
+                    <div class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Action
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">                          
+                          <button class="dropdown-item"  (click)="openModalFromEdit(template,item,i)">Payment</button> 
+                          <button class="dropdown-item" (click)="generatePdf(item)"> Print </button> 
+                         
+                        </div>
+                       
+                      </div>
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="invoiceList?.length == 0">
+          <tr>
+            <td colspan="3" class="no-data-available">No data!</td>
+          </tr>
+        <tbody>
+      </table>
+    </div>
+  </div>
+</div>  
+
+<ng-template #template>  
+<div class="modal-header">  
+  <h4 class="modal-title pull-left">{{ModalHeading}}</h4>  
+  <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">  
+    <span aria-hidden="true">×</span>  
+  </button>  
+</div>  
+<div class="modal-body">  
+  <!-- Success Alert -->
+  <div *ngIf="IsDisplay =='1'" class="alert alert-success alert-dismissible fade show">
+    <strong>Success!</strong> {{Message}}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+  </div>
+  <!-- Error Alert -->
+  <div *ngIf="IsDisplay=='0'" class="alert alert-danger alert-dismissible fade show">
+    <strong>Error!</strong> {{Message}}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+  </div>
+  
+  <form style="width: 100%;" [formGroup]="orderForm" (ngSubmit)="submitOrder()">
+    
+    <input type="text" hidden formControlName="Id" class="form-control" id="Id">
+    <div class="row">
+      <div class="col-md-3">Due Amount</div>
+      <div class="col-md-8">
+          <input disabled type="number" formControlName="Due" class="form-control" id="Due" [ngClass]="{ 'is-invalid': submitted && f.Due.errors }">
+          <div *ngIf="submitted && f.Due.errors" class="invalid-feedback">
+            <div *ngIf="f.Due.errors.required">Due is required</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-md-3">Pay Amount</div>
+        <div class="col-md-8">
+            <input type="number" formControlName="Paid" class="form-control" id="Paid" [ngClass]="{ 'is-invalid': submitted && f.Paid.errors }">
+            <div *ngIf="submitted && f.Paid.errors" class="invalid-feedback">
+              <div *ngIf="f.Paid.errors.required">Paid is required</div>
+          </div>
+        </div>
+      </div>
+
+    <div class="row mt-2">
+        <div class="col-md-3">Payment Type</div>
+        <div class="col-md-8">
+            <select id="PaymentType" formControlName="PaymentType" class="form-control" [ngClass]="{'is-invalid': submitted && f.PaymentType.errors }">
+                <option>Cash</option>
+                <option>Cheque</option>
+                <option>Credit Card</option>
+            </select>
+            <div *ngIf="submitted && f.PaymentType.errors" class="invalid-feedback">
+                <div *ngIf="f.PaymentType.errors.required">Payment Type is required</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-md-3">Payment Status</div>
+      <div class="col-md-8">
+          <select id="Status" formControlName="Status" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Status.errors }">
+              <option>Available</option>
+              <option>Not Available</option>                
+          </select>
+          <div *ngIf="submitted && f.Status.errors" class="invalid-feedback">
+            <div *ngIf="f.Status.errors.required">Status is required</div>
+        </div>
+      </div>
+  </div>
+
+  <div class="modal-footer">    
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+    <button type="submit" class="btn btn-primary">Save changes</button>
+   </div>
+  </form>
+</div>  
+</ng-template> 
