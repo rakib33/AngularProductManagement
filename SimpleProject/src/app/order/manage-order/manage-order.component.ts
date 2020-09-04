@@ -76,8 +76,8 @@ CreateForm(isEdit,data){
     serverSide: true,
     processing: true,
    
-    recordsTotal: this.invoiceList !== undefined  ? this.invoiceList.length : 0,
-    recordsFiltered: this.invoiceList !== undefined ? this.invoiceList.length: 0,
+    recordsTotal: this.invoiceList.length ,
+    recordsFiltered:  this.invoiceList.length,
     
     columns: [
     { data:'Id' }, 
@@ -88,8 +88,7 @@ CreateForm(isEdit,data){
     {data:'Status' },
     {data:'InvoiceNo'} ,
     {data:'StrInvoiceDate'} ,
-    {data:'PaymentType'},
-    {data: 'Purchases'},
+    {data:'PaymentType'},    
     {data:'Total'},
     {data:'OtherExpense'},
     {data:'Discount'},
@@ -98,14 +97,10 @@ CreateForm(isEdit,data){
     {data:'Due'},
     {data:'Description'}   
     ]
-
-  };
-  
+  };  
 }
 
-
-
-  getInvoice() {
+getInvoice() {
     let response = new CatagoryResponse();
     this.orderService.getInvoiceList()
     .subscribe((res) => {

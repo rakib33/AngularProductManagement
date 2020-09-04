@@ -128,8 +128,9 @@
       <div class="col-md-3">Payment Status</div>
       <div class="col-md-8">
           <select id="Status" formControlName="Status" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Status.errors }">
-              <option>Available</option>
-              <option>Not Available</option>                
+            <option>Full Payment</option>
+            <option>Advance Payment</option>
+            <option>No Payment</option>              
           </select>
           <div *ngIf="submitted && f.Status.errors" class="invalid-feedback">
             <div *ngIf="f.Status.errors.required">Status is required</div>

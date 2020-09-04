@@ -33,10 +33,11 @@ export class Product{
 }  
 
 export class Invoice{
+  Id: string;
   InvoiceDate: Date; //order date
   StrInvoiceDate: string;
   CustomerName: string; //ClientName
-  Phone: number; //Contact
+  Phone: string; //Contact
   Customer_Id: string; //Supplier Id, from dropdown
   InvoiceNo: string;
   Total:number; //sub total
@@ -49,8 +50,7 @@ export class Invoice{
   PaymentType:string;
   Status:string;
   profilePic:File;
-  TotalPurchase : number;
-  Id: string;
+  TotalPurchase:number; 
   Purchases: Purchase[];
 }
 
