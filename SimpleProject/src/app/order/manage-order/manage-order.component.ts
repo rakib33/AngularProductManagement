@@ -1,7 +1,7 @@
 import { Component, OnInit,TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef,ModalOptions } from 'ngx-bootstrap/modal';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Catagory , CatagoryResponse, Invoice } from '../../../Model/Category';
+import { Catagory , CatagoryResponse, Invoice,InvoiceResponse } from '../../../Model/Category';
 import { OrderService } from 'src/services/order-service.service';
 import { ReportService } from '../../services/report.service';
 import { DatePipe } from '@angular/common';
@@ -34,10 +34,8 @@ export class ManageOrderComponent implements OnInit {
   submitted = false;
 
   constructor(public datepipe: DatePipe ,private formBuilder: FormBuilder,private modalService: BsModalService,private orderService: OrderService, private reportService: ReportService) { 
-    //this.CreateForm('');
     this.IsDisplay = 'none'; 
-    this.Message = '';  
- 
+    this.Message = '';   
 } 
 
 CreateForm(isEdit,data){
@@ -176,10 +174,41 @@ submitOrder(){
   },(error:any)=>console.log(error))  
 }
 
-generatePdf(val){
-  let InvoiceCreateDate =this.datepipe.transform(Date.now(), 'yyyy-MM-dd-HH-mm-ss');
-  pdfMake.createPdf(this.reportService.getInvoiceReportData(val)).download('Invoice-'+InvoiceCreateDate+'.pdf');
-  pdfMake.createPdf(this.reportService.getInvoiceReportData(val)).open();
-  }
+// public getInvoiceById(Id){
+// let response = new CatagoryResponse();  
+//     this.orderService.getInvoiceById(Id)
+//     .subscribe((res) => {
+//       response = res;
+//       console.log('response:'+ response);
+//       if(response.IsSuccess == false){
+//        alert(response.message);
+//       }else{
+       
+//       }
+//    },(error:any)=>{    
+//      console.log(error),alert(error)
+//     })
+//     return response;
+// }
 
+generatePdf(val:Invoice){
+  let response = new InvoiceResponse();
+  this.orderService.getInvoicePurchaseById(val.Id)
+  .subscribe((res) => {
+    
+    console.log('response:'+ response);
+    if(response.IsSuccess == false){
+     alert(response.message);
+    }else{
+      let InvoiceCreateDate =this.datepipe.transform(Date.now(), 'yyyy-MM-dd-HH-mm-ss');
+      pdfMake.createPdf(this.reportService.getInvoiceReportData(response.InvoiceModel)).download('Invoice-'+InvoiceCreateDate+'.pdf');
+      pdfMake.createPdf(this.reportService.getInvoiceReportData(response.InvoiceModel)).open();
+
+    }
+ },(error:any)=>{    
+   console.log(error),alert(error)
+  })  
+    // alert('Invoice Value not Found');
+  }
 }
+

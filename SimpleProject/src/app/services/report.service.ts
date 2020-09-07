@@ -12,7 +12,7 @@ export class ReportService {
   constructor() { }
 
   
-  getInvoiceReportData(invoice) {
+  getInvoiceReportData(invoice:Invoice) {
    
     let strOrderDate = 'Order Date :' +  invoice.InvoiceDate;   
     let strClientName = 'Client Name :' +  invoice.CustomerName;   
@@ -23,70 +23,79 @@ export class ReportService {
          {
            text: "Order Invoice - KiniCom",
            bold: true,
-           fontSize: 20,
+           fontSize: 14,
            alignment: 'center',
            margin: [0, 0, 0, 20]
          },
          {
-           text: "Invoice No: "+ invoice.InvoiceNo
+           text: "Invoice No: "+ invoice.InvoiceNo,
+           style: 'contentText',
+           alignment: 'center'
          },
          {
-          text: strOrderDate
+          text: strOrderDate,
+          style: 'contentText',
+          alignment: 'center'
          },
          {
-          text: strClientName
+          text: strClientName,
+          style: 'contentText',
+          alignment: 'center'
          },
          {
-          text: strClientContact
+          text: strClientContact,
+          style: 'contentText',
+          alignment: 'center'
          },
          {
-          text: strSupplierName
-         },
-         {
-          text: ''
-         },
-        {
-          text: 'Product List',
-          style: 'header'
-        },
+          text: strSupplierName,
+          style: 'contentText',
+          alignment: 'center'
+         },        
+        
         this.getPurchasesObject(invoice.Purchases),
         {
           text: '',
-          style: 'header'
+          margin: [0, 0, 0, 2]
         }, 
         {
            columns: [
              [{
                text: "Sub Total      :" + invoice.Total,
-              
+               style: 'contentText'
              },
              {
-               text: "Vat(0%)         :" + invoice.OtherExpense
+               text: "Vat         :" + invoice.OtherExpense,
+               style: 'contentText'
              },
              {
                text: "Discount       :" + invoice.OtherExpense,
+               style: 'contentText'
              },
              {
                text: "Total Amount    :" + invoice.Payable,
-               //style: 'name'
+               style: 'contentText',              
              },
              {
               text: "Paid Amount     :" + invoice.Paid,
+              style: 'contentText'
              },
              {
               text: "Due Amount      :" + invoice.Due,
+              style: 'contentText'
              },
              {
-               text: "Payement Type  :"+ invoice.PaymentType
+               text: "Payement Type  :"+ invoice.PaymentType,
+               style: 'contentText'
              },
              {
-              text: "Status          :"+ invoice.Status
+              text: "Status          :"+ invoice.Status,
+              style: 'contentText'
             },
+           
             {
-              text: ''
-            },
-            {
-              text: "Description:"+ invoice.Description
+              text: "Description:"+ invoice.Description,
+              style: 'contentText'
             },
             //  {
             //    text: 'GitHub: ',
@@ -109,7 +118,12 @@ export class ReportService {
            name: {
              fontSize: 16,
              bold: true
+           },
+           contentText:{
+             fontSize:11,
+             margin: [0, 0, 0, 1]
            }
+           
          }
      };
    }

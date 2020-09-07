@@ -11,11 +11,22 @@ export  class CatagoryResponse {
     IsSuccess: boolean;
     categories: Catagory[];
     products : Product[];
-    invoiceList: Invoice[];
+    invoiceList: Invoice[];    
     model: any;
     message: string;
     InvoiceNo: string;
   }
+  export class InvoiceResponse{
+    IsSuccess: boolean;
+    InvoiceModel: Invoice;
+    purchaseList : Purchase[];
+    message: string;
+    InvoiceNo: string;
+  }
+export class OrderReport{
+  StartDate : Date;
+  EndDate: Date;
+}
 
 export class Product{
   Id : string;

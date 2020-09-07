@@ -6,7 +6,7 @@ import { data } from 'jquery';
 import { Observable ,throwError } from 'rxjs';
 import { catchError,map,filter,tap } from 'rxjs/operators';
 
-import { Catagory , CatagoryResponse, Invoice } from '../Model/Category';
+import { Catagory , CatagoryResponse, Invoice, InvoiceResponse } from '../Model/Category';
 
 
 
@@ -23,6 +23,10 @@ export class OrderService {
     return this.httpClient.get(this.url);
   }
   
+  getInvoicePurchaseById(Id): Observable<InvoiceResponse>{
+    let getUrl = globalConstant.BaseUrl + 'GetInvoicePurchasebyId?Id='+Id;
+    return this.httpClient.get<InvoiceResponse>(getUrl);    
+  }
 
   getInvoiceList(): Observable<CatagoryResponse>{
     let getUrl = globalConstant.BaseUrl + 'GetOrderInvoice';
@@ -33,6 +37,10 @@ export class OrderService {
     //       );
   }
 
+  getInvoiceListByDate(StartDate,EndDate): Observable<CatagoryResponse>{
+    let getUrl = globalConstant.BaseUrl + "GetOrderInvoice?StartDate="+StartDate+"&EndDate="+EndDate;
+    return this.httpClient.get<CatagoryResponse>(getUrl);   
+  }
   
 private handleError(err: HttpErrorResponse) {
   debugger;

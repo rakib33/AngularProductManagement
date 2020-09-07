@@ -1,1 +1,48 @@
-<p>reports works!</p>
+<div class="card mb-4">
+    <div class="card-header">
+        Order Report
+    </div>
+    <div class="card-body">
+        <div class="row mt-4">
+            <form style="width: 100%;" [formGroup]="OrderReportForm" (ngSubmit)="submitHandler()">
+                             <!-- Order Date/Invoice Date -->
+                             <div class="row" style="padding-top: 10px; padding-left: 10px; padding-right: 10px;">
+                                <div class="col-md-3">
+                                    <div class="form-group" style="float: right; padding-top: .35rem;">
+                                        <label for="StartDate">Start Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <input type="date" formControlName="StartDate" class="form-control"
+                                            id="StartDate">                                            
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Order Date/Invoice Date -->
+                            <div class="row" style="padding-top: 10px; padding-left: 10px; padding-right: 10px;">
+                                <div class="col-md-3">
+                                    <div class="form-group" style="float: right; padding-top: .35rem;">
+                                        <label for="EndDate">End Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <input type="date" formControlName="EndDate" class="form-control"
+                                            id="EndDate">                                            
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-8 mt-4" style="height: 30px;">
+                                    <span>
+                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                    </span>                                   
+                                </div>
+                            </div>
+            </form>
+        </div>
+    </div>
+</div>

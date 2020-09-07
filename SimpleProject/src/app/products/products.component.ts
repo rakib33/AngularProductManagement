@@ -267,6 +267,7 @@ CreateForm(isEdit, data){
           } else{
             this.Message ="Save Success";
           }
+          this.onReset();
         }  
         
      },(error:any)=>{console.log(error)})
