@@ -21,7 +21,6 @@ export  class CatagoryResponse {
     InvoiceModel: Invoice;
     purchaseList : Purchase[];
     message: string;
-    InvoiceNo: string;
   }
 export class OrderReport{
   StartDate : Date;

@@ -1,7 +1,7 @@
 import { Component, OnInit,TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef,ModalOptions } from 'ngx-bootstrap/modal';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Catagory , CatagoryResponse, Invoice,InvoiceResponse } from '../../../Model/Category';
+import { Catagory , CatagoryResponse, Invoice,InvoiceResponse, Purchase } from '../../../Model/Category';
 import { OrderService } from 'src/services/order-service.service';
 import { ReportService } from '../../services/report.service';
 import { DatePipe } from '@angular/common';
@@ -25,6 +25,7 @@ export class ManageOrderComponent implements OnInit {
 
   modalRef: BsModalRef;  
   Invoice: Invoice[];
+  PurchaseList: Purchase[];
   invoiceObj : Invoice;
   invoiceList: Invoice[];
   ModalHeading : string;
@@ -174,41 +175,175 @@ submitOrder(){
   },(error:any)=>console.log(error))  
 }
 
-// public getInvoiceById(Id){
-// let response = new CatagoryResponse();  
-//     this.orderService.getInvoiceById(Id)
-//     .subscribe((res) => {
-//       response = res;
-//       console.log('response:'+ response);
-//       if(response.IsSuccess == false){
-//        alert(response.message);
-//       }else{
-       
-//       }
-//    },(error:any)=>{    
-//      console.log(error),alert(error)
-//     })
-//     return response;
-// }
+
+  
+getInvoiceReportData(invoice:Invoice) {
+   
+  let strOrderDate = 'Order Date :' +  invoice.StrInvoiceDate;   
+  let strClientName = 'Client Name :' +  invoice.CustomerName;   
+  let strClientContact = 'Client Contact :' +  invoice.Phone;   
+  let strSupplierName = 'Supplier Contact :' +  invoice.Customer_Id;     
+   return {
+     content: [
+       {
+         text: "Order Invoice - KiniCom",
+         bold: true,
+         fontSize: 14,
+         alignment: 'center',
+         margin: [0, 0, 0, 2]
+       },
+       {
+         text: "Invoice No: "+ invoice.InvoiceNo,
+         style: 'contentText',
+         alignment: 'center'
+       },
+       {
+        text: strOrderDate,
+        style: 'contentText',
+        alignment: 'center'
+       },
+       {
+        text: strClientName,
+        style: 'contentText',
+        alignment: 'center'
+       },
+       {
+        text: strClientContact,
+        style: 'contentText',
+        alignment: 'center'
+       },
+       {
+        text: strSupplierName,
+        style: 'contentText',
+        alignment: 'center'
+       },        
+      
+      this.getPurchasesObject(invoice.Purchases),
+      {
+        text: '',
+        margin: [0, 0, 0, 2]
+      }, 
+      {
+         columns: [
+           [{
+             text: "Sub Total:" + invoice.Total,
+             style: 'contentText'
+           },
+           {
+             text: "Vat:" + invoice.OtherExpense,
+             style: 'contentText'
+           },
+           {
+             text: "Discount:" + invoice.OtherExpense,
+             style: 'contentText'
+           },
+           {
+             text: "Total Amount:" + invoice.Payable,
+             style: 'contentText',              
+           },
+           {
+            text: "Paid Amount:" + invoice.Paid,
+            style: 'contentText'
+           },
+           {
+            text: "Due Amount:" + invoice.Due,
+            style: 'contentText'
+           },
+          //  {
+          //    text: "Payement Type  :"+ invoice.PaymentType,
+          //    style: 'contentText'
+          //  },
+          //  {
+          //   text: "Status          :"+ invoice.Status,
+          //   style: 'contentText'
+          // },
+         
+          // {
+          //   text: "Description:"+ invoice.Description,
+          //   style: 'contentText'
+          // },
+          //  {
+          //    text: 'GitHub: ',
+          //    link: 'asdg jsdgja',
+          //    color: 'blue',
+          //  }
+           ],
+           [
+             // Document definition for Profile pic
+           ]
+         ]
+       }],
+       info: {
+        title: 'Order Invoice',
+        author: 'KiniCom',
+        subject: 'Invoice',
+        keywords: 'KiniCom, Order Invoice',
+      },
+       styles: {
+         name: {
+           fontSize: 16,
+           bold: true
+         },
+         contentText:{
+           fontSize:11,
+           margin: [0, 0, 0, 1]
+         }
+         
+       }
+   };
+ }
+
+
+ getPurchasesObject(Purchases: Purchase[]) {
+  return {
+    table: {
+      widths: [250, '*', '*', '*'],
+      body: [
+        [{
+          text: 'Product Name',
+          style: 'tableHeader'
+        },
+        {
+          text: 'Quantity',
+          style: 'tableHeader'
+        },
+        {
+          text: 'Rate',
+          style: 'tableHeader'
+        },
+        {
+          text: 'Total',
+          style: 'tableHeader'
+        },
+        ],
+        ...Purchases.map(ed => {
+          return [ed.ProductName, ed.Qty, ed.BuyRate, ed.BuyTotal];
+        })
+      ]
+    }
+  };
+}
 
 generatePdf(val:Invoice){
-  let response = new InvoiceResponse();
+ 
+  let response = new InvoiceResponse()
   this.orderService.getInvoicePurchaseById(val.Id)
   .subscribe((res) => {
-    
-    console.log('response:'+ response);
+    response = res;    
     if(response.IsSuccess == false){
-     alert(response.message);
+      alert(response.message);
     }else{
-      let InvoiceCreateDate =this.datepipe.transform(Date.now(), 'yyyy-MM-dd-HH-mm-ss');
-      pdfMake.createPdf(this.reportService.getInvoiceReportData(response.InvoiceModel)).download('Invoice-'+InvoiceCreateDate+'.pdf');
-      pdfMake.createPdf(this.reportService.getInvoiceReportData(response.InvoiceModel)).open();
-
+     this.invoiceObj = response.InvoiceModel;
+     this.PurchaseList = response.purchaseList;
+     let InvoiceCreateDate =this.datepipe.transform(Date.now(), 'yyyy-MM-dd-HH-mm-ss');
+     pdfMake.createPdf(this.getInvoiceReportData(this.invoiceObj)).download('Invoice-'+ InvoiceCreateDate+'.pdf');
+     pdfMake.createPdf(this.getInvoiceReportData(this.invoiceObj)).open();
     }
- },(error:any)=>{    
+ },(error:any)=>{
    console.log(error),alert(error)
-  })  
-    // alert('Invoice Value not Found');
+  })
+
+
   }
 }
 

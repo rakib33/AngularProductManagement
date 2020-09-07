@@ -47,16 +47,16 @@ CreateForm(isEdit, data){
 
   if(isEdit == false){
     this.productForm = this.formBuilder.group({
-      Id:['',Validators.required],
+      Id:[''],
       Name: ['',[Validators.required, Validators.minLength(50)]],
       Status:['',Validators.required],
-      Description:['',[Validators.required, Validators.minLength(150)]],
+      Description:[''],
       ProductQuantity:['',[Validators.required, Validators.minLength(20),Number]],
       CostPrice : ['',[Validators.required, Validators.minLength(20),Number]],
       Catagory_Id : ['',Validators.required],
       Brand_Id : ['',Validators.required],
-      file: ['', [Validators.required]],
-      fileSource:['', [Validators.required]]
+      file: [''],
+      fileSource:['']
       });
     }
     else if(isEdit == true){
@@ -64,9 +64,9 @@ CreateForm(isEdit, data){
         Id:[data.Id,Validators.required],
         Name: [data.Name,[Validators.required, Validators.minLength(50)]],
         Status:[data.Status,Validators.required],
-        Description:[data.Description,[Validators.required, Validators.minLength(150)]],
-        ProductQuantity:[data.ProductQuantity,[Validators.required, Validators.minLength(150),Number]],
-        CostPrice : [data.CostPrice,[Validators.required, Validators.minLength(150),Number]],
+        Description:[data.Description],
+        ProductQuantity:[data.ProductQuantity,Validators.required],
+        CostPrice : [data.CostPrice,Validators.required],
         Catagory_Id : [data.Catagory_Id,Validators.required],
         Brand_Id : [data.Brand_Id,Validators.required]
         });
@@ -143,8 +143,8 @@ CreateForm(isEdit, data){
       recordsTotal: this.productList.length,
       recordsFiltered: this.productList.length,
       columns: [{ data: 'Id' }, 
-      { data: 'Name' }, 
-      { data: 'Status' },
+      {data:'Name' }, 
+      {data:'Status' },
       {data:'Description'},
       {data:'CreatedBy'},
       {data:'CreatedDate'},
@@ -216,24 +216,6 @@ CreateForm(isEdit, data){
       let Uploadedfile: File = files[0];
       this.productForm.get('file').setValue(Uploadedfile);
       let productObj = this.productForm.value;
-
-      // let headers = new Headers();
-      //   /** In Angular 5, including the header Content-Type can invalidate your request */
-      //   headers.append('Content-Type', 'multipart/form-data');
-      //   headers.append('Accept', 'application/json');
-        // let options = new RequestOptions({ headers: headers });
-        // this.http.post(`${this.apiEndPoint}`, formData, options)
-        //     .map(res => res.json())
-        //     .catch(error => Observable.throw(error))
-        //     .subscribe(
-        //         data => console.log('success'),
-        //         error => console.log(error)
-        //     )
-
-      //   this.productService.SubmitTransaction(productObj)
-      //   .subscribe((res) => {
-      //    let  response = res;
-      //  },(error:any)=>{console.log(error)})
     }
 }
 
@@ -245,12 +227,7 @@ CreateForm(isEdit, data){
       let response = new CatagoryResponse();
       let IsEdit = 0;
       let index ;
-      
-      // if(this.categoryObj.Id ){
-      //   IsEdit = 1;
-      //   index = this.categoryList.indexOf(this.categoryObj);   
-      // }
-  
+       
       this.productService.SubmitTransaction(ProductValue)
       .subscribe((res) => {
         response = res;
