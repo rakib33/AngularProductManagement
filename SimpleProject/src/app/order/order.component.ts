@@ -40,8 +40,8 @@ export class OrderComponent implements OnInit {
   InvoiceCreateDate : string;
   generatePdf(val){
    this.InvoiceCreateDate =this.datepipe.transform(Date.now(), 'yyyy-MM-dd-HH-mm-ss');
-   pdfMake.createPdf(this.getDocumentDefinition()).download('Invoice-'+this.InvoiceCreateDate+'.pdf');
-   pdfMake.createPdf(this.getDocumentDefinition()).open();
+   pdfMake.createPdf(this.getInvoiceReportData(this.OrderFromValue)).download('Invoice-'+this.InvoiceCreateDate+'.pdf');
+   pdfMake.createPdf(this.getInvoiceReportData(  this.OrderFromValue)).open();
    }
 
    resetForm(){
@@ -62,140 +62,287 @@ export class OrderComponent implements OnInit {
     return null;
   }
 
-   getDocumentDefinition() {
-    sessionStorage.setItem('resume', JSON.stringify(this.nestedForm.value));
-    let strOrderDate = 'Order Date :' +  this.OrderFromValue.InvoiceDate;   
-    let strClientName = 'Client Name :' +  this.OrderFromValue.CustomerName;   
-    let strClientContact = 'Client Contact :' +  this.OrderFromValue.Phone;   
-    let strSupplierName = 'Supplier Name :' +  this.OrderFromValue.Customer_Id;     
-     return {
-       content: [
-         {
-           text: "Order Invoice - KiniCom",
-           bold: true,
-           fontSize: 20,
-           alignment: 'center',
-           margin: [0, 0, 0, 20]
-         },
-         {
-           text: "Invoice No: "+ this.InvoiceNo
-         },
-         {
-          text: strOrderDate
-         },
-         {
-          text: strClientName
-         },
-         {
-          text: strClientContact
-         },
-         {
-          text: strSupplierName
-         },
-         {
-          text: ''
-         },
-        {
-          text: 'Product List',
-          style: 'header'
-        },
-        this.getPurchasesObject(this.OrderFromValue.Purchases),
-        {
-          text: '',
-          style: 'header'
-        }, 
-        {
-           columns: [
-             [{
-               text: "Sub Total      :" + this.OrderFromValue.Total,
+  //  getDocumentDefinition() {
+  //   //sessionStorage.setItem('resume', JSON.stringify(this.nestedForm.value));
+  //   let strOrderDate = 'Order Date :' +  this.OrderFromValue.InvoiceDate;   
+  //   let strClientName = 'Client Name :' +  this.OrderFromValue.CustomerName;   
+  //   let strClientContact = 'Client Contact :' +  this.OrderFromValue.Phone;   
+  //   let strSupplierName = 'Supplier Name :' +  this.OrderFromValue.Customer_Id;     
+  //    return {
+  //      content: [
+  //        {
+  //          text: "Order Invoice - KiniCom",
+  //          bold: true,
+  //          fontSize: 20,
+  //          alignment: 'center',
+  //          margin: [0, 0, 0, 20]
+  //        },
+  //        {
+  //          text: "Invoice No: "+ this.InvoiceNo
+  //        },
+  //        {
+  //         text: strOrderDate
+  //        },
+  //        {
+  //         text: strClientName
+  //        },
+  //        {
+  //         text: strClientContact
+  //        },
+  //        {
+  //         text: strSupplierName
+  //        },
+  //        {
+  //         text: ''
+  //        },
+  //       {
+  //         text: 'Product List',
+  //         style: 'header'
+  //       },
+  //       this.getPurchasesObject(this.OrderFromValue.Purchases),
+  //       {
+  //         text: '',
+  //         style: 'header'
+  //       }, 
+  //       {
+  //          columns: [
+  //            [{
+  //              text: "Sub Total      :" + this.OrderFromValue.Total,
               
-             },
-             {
-               text: "Vat(0%)         :" + this.OrderFromValue.OtherExpense
-             },
-             {
-               text: "Discount       :" + this.OrderFromValue.OtherExpense,
-             },
-             {
-               text: "Total Amount    :" + this.OrderFromValue.Payable,
-               //style: 'name'
-             },
-             {
-              text: "Paid Amount     :" + this.OrderFromValue.Paid,
-             },
-             {
-              text: "Due Amount      :" + this.OrderFromValue.Due,
-             },
-             {
-               text: "Payement Type  :"+ this.OrderFromValue.PaymentType
-             },
-             {
-              text: "Status          :"+ this.OrderFromValue.Status
-            },
-            {
-              text: ''
-            },
-            {
-              text: "Description:"+ this.OrderFromValue.Description
-            },
-            //  {
-            //    text: 'GitHub: ',
-            //    link: 'asdg jsdgja',
-            //    color: 'blue',
-            //  }
-             ],
-             [
-               // Document definition for Profile pic
-             ]
+  //            },
+  //            {
+  //              text: "Vat(0%)         :" + this.OrderFromValue.OtherExpense
+  //            },
+  //            {
+  //              text: "Discount       :" + this.OrderFromValue.OtherExpense,
+  //            },
+  //            {
+  //              text: "Total Amount    :" + this.OrderFromValue.Payable,
+  //              //style: 'name'
+  //            },
+  //            {
+  //             text: "Paid Amount     :" + this.OrderFromValue.Paid,
+  //            },
+  //            {
+  //             text: "Due Amount      :" + this.OrderFromValue.Due,
+  //            },
+  //            {
+  //              text: "Payement Type  :"+ this.OrderFromValue.PaymentType
+  //            },
+  //            {
+  //             text: "Status          :"+ this.OrderFromValue.Status
+  //           },
+  //           {
+  //             text: ''
+  //           },
+  //           {
+  //             text: "Description:"+ this.OrderFromValue.Description
+  //           },
+  //           //  {
+  //           //    text: 'GitHub: ',
+  //           //    link: 'asdg jsdgja',
+  //           //    color: 'blue',
+  //           //  }
+  //            ],
+  //            [
+  //              // Document definition for Profile pic
+  //            ]
+  //          ]
+  //        }],
+  //        info: {
+  //         title: 'Order Invoice',
+  //         author: 'KiniCom',
+  //         subject: 'Invoice',
+  //         keywords: 'KiniCom, Order Invoice',
+  //       },
+  //        styles: {
+  //          name: {
+  //            fontSize: 16,
+  //            bold: true
+  //          }
+  //        }
+  //    };
+  //  }
+
+
+  //  getPurchasesObject(Purchases: Purchase[]) {
+  //   return {
+  //     table: {
+  //       widths: ['*', '*', '*', '*'],
+  //       body: [
+  //         [{
+  //           text: 'Product Name',
+  //           style: 'tableHeader'
+  //         },
+  //         {
+  //           text: 'Quantity',
+  //           style: 'tableHeader'
+  //         },
+  //         {
+  //           text: 'Rate',
+  //           style: 'tableHeader'
+  //         },
+  //         {
+  //           text: 'Total',
+  //           style: 'tableHeader'
+  //         },
+  //         ],
+  //         ...Purchases.map(ed => {
+  //           return [ed.ProductName, ed.Qty, ed.BuyRate, ed.BuyTotal];
+  //         })
+  //       ]
+  //     }
+  //   };
+  // }
+
+
+    
+getInvoiceReportData(invoice:Invoice) {
+   
+  let strOrderDate = 'Order Date :' +  invoice.StrInvoiceDate;   
+  let strClientName = 'Client Name :' +  invoice.CustomerName;   
+  let strClientContact = 'Client Contact :' +  invoice.Phone;   
+  let strSupplierName = 'Supplier Contact :' +  invoice.Customer_Id;     
+   return {
+     content: [
+       {
+         text: "Order Invoice - KiniCom",
+         bold: true,
+         fontSize: 14,
+         alignment: 'center',
+         margin: [0, 0, 0, 2]
+       },
+       {
+         text: "Invoice No: "+ invoice.InvoiceNo,
+         style: 'contentText',
+         alignment: 'center'
+       },
+       {
+        text: strOrderDate,
+        style: 'contentText',
+        alignment: 'center'
+       },
+       {
+        text: strClientName,
+        style: 'contentText',
+        alignment: 'center'
+       },
+       {
+        text: strClientContact,
+        style: 'contentText',
+        alignment: 'center'
+       },
+       {
+        text: strSupplierName,
+        style: 'contentText',
+        alignment: 'center'
+       },        
+      
+      this.getPurchasesObject(invoice.Purchases),
+      {
+        text: '',
+        margin: [0, 0, 0, 2]
+      }, 
+      {
+         columns: [
+           [{
+             text: "Sub Total:" + invoice.Total,
+             style: 'contentText'
+           },
+           {
+             text: "Vat:" + invoice.OtherExpense,
+             style: 'contentText'
+           },
+           {
+             text: "Discount:" + invoice.OtherExpense,
+             style: 'contentText'
+           },
+           {
+             text: "Total Amount:" + invoice.Payable,
+             style: 'contentText',              
+           },
+           {
+            text: "Paid Amount:" + invoice.Paid,
+            style: 'contentText'
+           },
+           {
+            text: "Due Amount:" + invoice.Due,
+            style: 'contentText'
+           },
+          //  {
+          //    text: "Payement Type  :"+ invoice.PaymentType,
+          //    style: 'contentText'
+          //  },
+          //  {
+          //   text: "Status          :"+ invoice.Status,
+          //   style: 'contentText'
+          // },
+         
+          // {
+          //   text: "Description:"+ invoice.Description,
+          //   style: 'contentText'
+          // },
+          //  {
+          //    text: 'GitHub: ',
+          //    link: 'asdg jsdgja',
+          //    color: 'blue',
+          //  }
+           ],
+           [
+             // Document definition for Profile pic
            ]
-         }],
-         info: {
-          title: 'Order Invoice',
-          author: 'KiniCom',
-          subject: 'Invoice',
-          keywords: 'KiniCom, Order Invoice',
-        },
-         styles: {
-           name: {
-             fontSize: 16,
-             bold: true
-           }
+         ]
+       }],
+       info: {
+        title: 'Order Invoice',
+        author: 'KiniCom',
+        subject: 'Invoice',
+        keywords: 'KiniCom, Order Invoice',
+      },
+       styles: {
+         name: {
+           fontSize: 16,
+           bold: true
+         },
+         contentText:{
+           fontSize:11,
+           margin: [0, 0, 0, 1]
          }
-     };
-   }
+         
+       }
+   };
+ }
 
 
-   getPurchasesObject(Purchases: Purchase[]) {
-    return {
-      table: {
-        widths: ['*', '*', '*', '*'],
-        body: [
-          [{
-            text: 'Product Name',
-            style: 'tableHeader'
-          },
-          {
-            text: 'Quantity',
-            style: 'tableHeader'
-          },
-          {
-            text: 'Rate',
-            style: 'tableHeader'
-          },
-          {
-            text: 'Total',
-            style: 'tableHeader'
-          },
-          ],
-          ...Purchases.map(ed => {
-            return [ed.ProductName, ed.Qty, ed.BuyRate, ed.BuyTotal];
-          })
-        ]
-      }
-    };
-  }
-
-
+ getPurchasesObject(Purchases: Purchase[]) {
+  return {
+    table: {
+      widths: [250, '*', '*', '*'],
+      body: [
+        [{
+          text: 'Product Name',
+          style: 'tableHeader'
+        },
+        {
+          text: 'Quantity',
+          style: 'tableHeader'
+        },
+        {
+          text: 'Rate',
+          style: 'tableHeader'
+        },
+        {
+          text: 'Total',
+          style: 'tableHeader'
+        },
+        ],
+        ...Purchases.map(ed => {
+          return [ed.ProductName, ed.Qty, ed.BuyRate, ed.BuyTotal];
+        })
+      ]
+    }
+  };
+}
    
 
   ngOnInit(): void {
@@ -247,8 +394,13 @@ onProductSelected(event, index:number,group){
   this.fetchProductRate(index,group,selectedProduct);
 }
 
-onQtyChanged(event,group){
-  let ProductQty : number = event.target.value;
+onQtyChanged(event,group,productQty=null){
+  let ProductQty : number = 1;
+  if(productQty !== null)
+    ProductQty = productQty;
+  else  
+   ProductQty = event.target.value;
+
   let productRate : number = group.controls.BuyRate.value;
   //check product Quantity
   let productId : string = group.controls.Product_Id.value
@@ -271,6 +423,8 @@ if(productObj.ProductQuantity >= ProductQty){
   this.TotalPayableCalculation();
   
 }
+
+
 onDiscountChanged(event){
   // let Discount : number = event.target.value;
   // let subTotal = this.nestedForm.controls['Total'].value;
@@ -316,13 +470,14 @@ GetNestedFromValue(fromControlName){
  fetchProductRate(index:number,group, productId){
   let productObj : Product =  this.ProductList.find(prod=> prod.Id === productId); //.find(t=>t.CostPrice);
   group.get('ProductName').setValue(productObj.Name);
-  group.get('BuyRate').setValue(productObj.CostPrice);
+  group.get('BuyRate').setValue(productObj.CostPrice);  
+  group.get('Qty').setValue(1);
+  this.onQtyChanged(null,group,1);
 }
   
 get GetPurchaseGroup(): FormArray {
     return this.nestedForm.get('Purchases') as FormArray;
 }
-
 //sum: number = 0 ;
 getSum() {
     return this.GetPurchaseGroup.value.reduce((prev, next) => prev + +next.Total, 0);
@@ -363,33 +518,24 @@ removeAddress(index){
   debugger;
   this.submitted = true;
   this.OrderFromValue = this.nestedForm.value;
-  console.log(this.OrderFromValue);
-  this.OrderFromValue = this.nestedForm.value;
-  console.log(this.OrderFromValue);
   this.createPost(this.OrderFromValue);
-
 }
 
 createPost(postData){
-
   let response = new CatagoryResponse();
    this.service.SubmitTransaction(postData)
     .subscribe((res) => {
-
       response = res;
       if(res.IsSuccess == false){
         this.IsDisplay = '0'; 
-        this.Message=res.message;
-        console.log(res.message);
+        this.Message=res.message;      
       }else{
         this.InvoiceNo = response.InvoiceNo;
         this.IsDisplay = '1'; 
         this.Message = 'Save Success';
         this.generatePdf('open');
-      }
-      let Data = res;
-      this.nestedForm.reset();
-    
+        this.nestedForm.reset();
+      }    
    },(error:any)=>console.log(error))
 
  }

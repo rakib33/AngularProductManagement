@@ -15,8 +15,7 @@ export class DashboardComponent implements OnInit {
   dashBoard : any = {};
   CurrentDate = Date.now();
   DashBoardAPI = globalConstant.BaseUrl + 'GetDashBoardData';
-  constructor(private http: HttpClient) { 
-    // this.dashBoard = new Dashboard();
+  constructor(private http: HttpClient) {
     this.dashBoard.IsRevenewTrue = false;
     this.dashBoard.LowCost= 0;
     this.dashBoard.TotalProduct=0;
@@ -34,7 +33,6 @@ export class DashboardComponent implements OnInit {
   };
 
   handleDateClick(arg) {
-    console.log(arg.dateStr);
     this.CurrentDate = arg.dateStr
     this.GetDashboardData(this.CurrentDate);
   }
@@ -42,7 +40,6 @@ export class DashboardComponent implements OnInit {
   highlightedDiv: number;
 
   toggleHighlight(newValue: number) {
-    console.log("ok");
     if (this.highlightedDiv === newValue) {
       this.highlightedDiv = 0;
     }
@@ -60,13 +57,11 @@ export class DashboardComponent implements OnInit {
      const body = { selectedDate: selectedDate }
      const headers = {'Content-Type':'application/json', 'Access-Control-Allow-Origin': '*' }
      this.DashBoardAPI =globalConstant.BaseUrl + "GetDashBoardData?selectedDate="+selectedDate
-	
-																							 
+																						 
      this.http.get<any>(this.DashBoardAPI).subscribe(res => {
        let Data = res;
         if(res.IsSuccess == true){
-          this.dashBoard = res.data;
-         // alert('Success');
+          this.dashBoard = res.data;        
         }else{
           alert('data not retrive'+ res.message);
         }

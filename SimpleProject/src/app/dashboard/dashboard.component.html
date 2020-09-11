@@ -37,8 +37,8 @@
                         </div> 
                         <!-- Friday 15, 2020 -->
                     </div>
-
-                    <div *ngIf="dashBoard.IsRevenewTrue" class="card" style="height: 160px; margin-top: 1.5rem;">
+                    <!-- *ngIf="dashBoard.IsRevenewTrue" -->
+                    <div  class="card" style="height: 160px; margin-top: 1.5rem;">
                         <div class="card-header" style="height: 70%; padding: 1.05rem; background-color: #1D5180;">
                             <p class="card-text" style="text-align: center; font-size: 3.75rem;">{{dashBoard.TotalRevenue}}</p>
                         </div>
@@ -57,3 +57,4 @@
     </div>
     <div class="col-md-1"></div>
 </div>
+<ng-http-loader></ng-http-loader>

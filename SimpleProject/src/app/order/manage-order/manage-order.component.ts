@@ -104,16 +104,13 @@ getInvoice() {
     this.orderService.getInvoiceList()
     .subscribe((res) => {
       response = res;
-      console.log('response:'+ response);
       if(response.IsSuccess == false){
         this.IsDisplay = '0';   
-        this.Message = response.message;
-        console.log(res.message);
+        this.Message = response.message;     
       }else{
         this.IsDisplay = '1'; 
         this.Message = "Save Successful";  
-        this.invoiceList = response.invoiceList; 
-        console.log(this.invoiceList);      
+        this.invoiceList = response.invoiceList;           
       }
    },(error:any)=>{
      debugger;
@@ -135,7 +132,7 @@ getInvoice() {
   };
 
   closeModal(){
-    console.log('modal close');
+    
     this.IsDisplay = 'none'; 
     this.onReset();
     this.modalService.setDismissReason('close');
@@ -166,7 +163,7 @@ submitOrder(){
         if(res.IsSuccess == false){
           this.IsDisplay = '0'; 
           this.Message=response.message;
-          console.log(response.message);
+         
         }else{
           this.IsDisplay = '1'; 
           this.Message = 'Save Success';

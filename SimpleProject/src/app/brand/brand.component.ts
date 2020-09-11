@@ -38,7 +38,7 @@ export class BrandComponent implements OnInit {
   Message : string;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder,private modalService: BsModalService,private catagoryService: BrandService) { 
+  constructor(private formBuilder: FormBuilder,private modalService: BsModalService,private catagoryService: BrandService,private http: HttpClient) { 
     this.CreateForm(false, '');
       this.IsDisplay = 'none'; 
       this.Message = '';   

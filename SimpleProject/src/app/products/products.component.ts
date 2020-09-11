@@ -101,7 +101,7 @@ CreateForm(isEdit, data){
   }
 
   closeModal(){
-    console.log('modal close');
+   
     this.IsDisplay = 'none'; 
     this.onReset();
     this.modalService.setDismissReason('close');
@@ -222,35 +222,30 @@ CreateForm(isEdit, data){
     submitProduct(){
       this.submitted = true;
       let ProductValue = this.productForm.value;
-      var bytes = [];  
-        
+      var bytes = []; 
       let response = new CatagoryResponse();
       let IsEdit = 0;
       let index ;
-       
+
       this.productService.SubmitTransaction(ProductValue)
       .subscribe((res) => {
         response = res;
         this.Message = response.message;
         if(response.IsSuccess == false){
-          this.IsDisplay = '0';     
-          console.log(res.message);
-        }else if(response.IsSuccess == true){
+          this.IsDisplay = '0';
+        }
+        else if(response.IsSuccess == true){
           this.GetProductList();    
-          this.IsDisplay = '1'; 
-           
+          this.IsDisplay = '1';            
           if(IsEdit == 1){
             this.Message ="Update Success";           
           } else{
             this.Message ="Save Success";
           }
           this.onReset();
-        }  
-        
+        }
      },(error:any)=>{console.log(error)})
-
   }
-
 }
     
 export class Dropdown {
