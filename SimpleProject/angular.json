@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/SimpleProject",
+            "outputPath": "E:/3. INVENTORY-MANAGEMENT-SYSTEM/INVENTORY-MANAGEMENT-SYSTEM/BookStore/Scripts/KiniAngularScript",         
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",

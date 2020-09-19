@@ -20,6 +20,7 @@ export class ProductsComponent implements OnInit {
 
   modalRef: BsModalRef;
   categoryObj : Catagory;
+  productObj : Product;
   productList: Product[];
   categoryList: Catagory[];
   brandList : Catagory[];
@@ -27,46 +28,50 @@ export class ProductsComponent implements OnInit {
   productForm : FormGroup; 
   IsDisplay : string;
   Message : string;
-  submitted = false;
-
+  submitted : boolean;
+  
+  selectedFile: File = null;  
+  fileByteArray : [];
   // constructor(private http: HttpClient) { }
 
-  constructor(private formBuilder: FormBuilder,private modalService: BsModalService,
+constructor(private formBuilder: FormBuilder,private modalService: BsModalService,
     private productService: ProductService,private categoryService: CatagoryService, 
     private brandService: BrandService) { 
-
     this.CreateForm(false, '');
     this.IsDisplay = 'none'; 
     this.Message = '';    
+    this.submitted = true;
 } 
-CreateForm(isEdit, data){
 
+CreateForm(isEdit, data){
   this.GetBrandList();
   this.GetCatagoryList();
-
 
   if(isEdit == false){
     this.productForm = this.formBuilder.group({
       Id:[''],
-      Name: ['',[Validators.required, Validators.minLength(50)]],
+      Name: ['',[Validators.required]],
       Status:['',Validators.required],
       Description:[''],
-      ProductQuantity:['',[Validators.required, Validators.minLength(20),Number]],
-      CostPrice : ['',[Validators.required, Validators.minLength(20),Number]],
+      ProductQuantity:['',[Validators.required]],
+      CostPrice : ['',[Validators.required]],
+      SalePrice :  ['',[Validators.required]],
       Catagory_Id : ['',Validators.required],
       Brand_Id : ['',Validators.required],
-      file: [''],
-      fileSource:['']
+      file: ['']
+      // fileSource:['']
       });
+      this.productForm.reset();
     }
     else if(isEdit == true){
       this.productForm = this.formBuilder.group({
         Id:[data.Id,Validators.required],
-        Name: [data.Name,[Validators.required, Validators.minLength(50)]],
+        Name: [data.Name,[Validators.required]],
         Status:[data.Status,Validators.required],
         Description:[data.Description],
         ProductQuantity:[data.ProductQuantity,Validators.required],
         CostPrice : [data.CostPrice,Validators.required],
+        SalePrice :  [data.SalePrice,Validators.required],
         Catagory_Id : [data.Catagory_Id,Validators.required],
         Brand_Id : [data.Brand_Id,Validators.required]
         });
@@ -100,21 +105,21 @@ CreateForm(isEdit, data){
   );    
   }
 
-  closeModal(){
-   
+  closeModal(){   
     this.IsDisplay = 'none'; 
     this.onReset();
     this.modalService.setDismissReason('close');
     this.modalService.hide(1);
   }
   onReset() {
+    this.productObj = null;
     this.submitted = false;
     this.productForm.reset();
+    this.imgURL = null;
     this.CreateForm(false,'');
 }
   // convenience getter for easy access to form fields
   get f() { return this.productForm.controls; }
-
 
   dtOptions: any  = {};
   ngOnInit(): void {
@@ -124,12 +129,11 @@ CreateForm(isEdit, data){
   GetProductList(){
   
     let response = new CatagoryResponse();
-    this.productService.getProductList()
+    this.productService.getProductList('')
     .subscribe((res) => {
       response = res;
       if(res.IsSuccess == false){
         alert(res.message);
-        console.log(res.message);
       }else{
         this.productList = res.products;
       }
@@ -160,28 +164,26 @@ CreateForm(isEdit, data){
   
 
   GetCatagoryList(){
-    debugger;
+  
     let response = new CatagoryResponse();
     this.categoryService.getCategoryList()
     .subscribe((res) => {
       response = res;
       if(res.IsSuccess == false){
         alert(res.message);
-        console.log(res.message);
       }else{
         this.categoryList = res.categories;
       }
    },(error:any)=>{console.log(error),alert(error)})
   }
   GetBrandList(){
-    debugger;
+
     let response = new CatagoryResponse();
     this.brandService.getCategoryList()
     .subscribe((res) => {
       response = res;
       if(res.IsSuccess == false){
         alert(res.message);
-        console.log(res.message);
       }else{
         this.brandList = res.categories;
       }
@@ -204,7 +206,7 @@ CreateForm(isEdit, data){
       this.message = "Only images are supported.";
       return;
     }
- 
+
     var reader = new FileReader();
     this.imagePath = files;
     reader.readAsDataURL(files[0]); 
@@ -212,22 +214,43 @@ CreateForm(isEdit, data){
       this.imgURL = reader.result; 
     }
     //let fileList: FileList = event.target.files;  
-    if(files.length > 0) {      
-      let Uploadedfile: File = files[0];
-      this.productForm.get('file').setValue(Uploadedfile);
-      let productObj = this.productForm.value;
+    if(files.length > 0) { 
+      this.selectedFile = files[0];
+      //this.getByteArray(this.selectedFile);
     }
 }
 
-    submitProduct(){
+getByteArray(file:File) {
+  var fileReader = new FileReader(); 
+  var reader = new FileReader();
+  var fileByteArray = [];
+  reader.readAsArrayBuffer(file);
+  var fileData = reader.result;  
+  fileByteArray = new  Array(fileData);
+  fileByteArray = new Array(fileData);
+  return fileByteArray;
+  // reader.onloadend = function (evt) {  
+  //     if (evt.target.readyState == FileReader.DONE) {
+  //        var arrayBuffer = evt.target.result;
+  //          var  array = new  Array(arrayBuffer);
+  //        for (var i = 0; i <  array.length; i++) {
+  //         fileByteArray.push(array[i]);
+  //         }
+  //     }
+  // }
+  
+}
+
+submitProduct(){
       this.submitted = true;
-      let ProductValue = this.productForm.value;
-      var bytes = []; 
+      // this.productForm.append('TileImage', this.selectedFile);
+      //this.productForm.get('file').setValue(this.selectedFile);
+      //this.productObj = new Product();
+      this.productObj = this.productForm.value;
+      this.productObj.file  = this.selectedFile; //this.getByteArray(this.selectedFile);  
       let response = new CatagoryResponse();
       let IsEdit = 0;
-      let index ;
-
-      this.productService.SubmitTransaction(ProductValue)
+      this.productService.SubmitTransaction(this.productObj)
       .subscribe((res) => {
         response = res;
         this.Message = response.message;

@@ -27,7 +27,8 @@
           <tr>
             <th>Sl No</th>
             <th>Product Name</th>
-            <th>Rate</th>
+            <th>Buy Rate</th>
+            <th>Sale Rate</th>
             <th>Quantity</th>
             <th>Brand Name</th>
             <th>Category Name</th>
@@ -40,6 +41,7 @@
                 <td>{{ i +1 }}</td>
                 <td>{{ person.Name }}</td>
                 <td>{{ person.CostPrice }}</td>
+                <td>{{ person.SalePrice }}</td>
                 <td>{{ person.ProductQuantity }}</td>
                 <td>{{ person.BrandName }}</td>
                 <td>{{ person.CategoryName }}</td>
@@ -115,7 +117,7 @@
 
 
    <div class="row mt-2">
-    <div class="col-md-3">Rate</div>
+    <div class="col-md-3">Purchase Rate</div>
     <div class="col-md-8">
       <input type="number" formControlName="CostPrice" class="form-control" id="CostPrice" [ngClass]="{ 'is-invalid': submitted && f.CostPrice.errors }">
       <div *ngIf="submitted && f.CostPrice.errors" class="invalid-feedback">
@@ -124,6 +126,15 @@
     </div>
    </div>
 
+   <div class="row mt-2">
+    <div class="col-md-3">Sale Rate</div>
+    <div class="col-md-8">
+      <input type="number" formControlName="SalePrice" class="form-control" id="SalePrice" [ngClass]="{ 'is-invalid': submitted && f.SalePrice.errors }">
+      <div *ngIf="submitted && f.SalePrice.errors" class="invalid-feedback">
+        <div *ngIf="f.SalePrice.errors.required">Sale Rate is required</div>
+      </div>
+    </div>
+   </div>
 
    <div class="row mt-2">
     <div class="col-md-3">Brand</div>

@@ -16,8 +16,8 @@ export class ProductService {
   constructor(private httpClient: HttpClient) { }
 
 
-  getProductList(): Observable<CatagoryResponse>{
-    let getUrl = globalConstant.BaseUrl + 'GetProduct';
+  getProductList(status): Observable<CatagoryResponse>{
+    let getUrl = globalConstant.BaseUrl + 'GetProduct?status='+status;
     return this.httpClient.get<CatagoryResponse>(getUrl).pipe(
               tap(data => console.log('All: ' + JSON.stringify(data))),
               catchError(this.handleError)

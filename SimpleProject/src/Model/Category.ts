@@ -35,11 +35,14 @@ export class Product{
   Catagory_Id: string;
   Brand_Id : string;
   CostPrice : number;
+  SalePrice : number;
   ProductQuantity : number;
   CreatedBy : string;
   CreatedDate : Date;
   BrandName: string;
   CategoryName : string;
+  file: File; //Uint8Array[];
+  fileData: Uint8Array[]; 
 }  
 
 export class Invoice{

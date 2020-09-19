@@ -237,9 +237,9 @@
                             <div class="col-md-3">Payment Type</div>
                             <div class="col-md-8">
                                 <select id="PaymentType" formControlName="PaymentType" class="form-control" [ngClass]="{'is-invalid': submitted && f.PaymentType.errors }">
-                                    <option>Cash</option>
-                                    <option>Cheque</option>
-                                    <option>Credit Card</option>
+                                    <option value="Cash" selected>Cash</option>
+                                    <option value="Cheque">Cheque</option>
+                                    <option value="Credit Card">Credit Card</option>
                                 </select>
                                 <div *ngIf="submitted && f.PaymentType.errors" class="invalid-feedback">
                                     <div *ngIf="f.PaymentType.errors.required">Payment Type is required</div>
@@ -251,9 +251,9 @@
                             <div class="col-md-3">Status</div>
                             <div class="col-md-8">
                                 <select id="Status" formControlName="Status" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Status.errors }">
-                                    <option>Full Payment</option>
-                                    <option>Advance Payment</option>
-                                    <option>No Payment</option>
+                                    <option value="Full Payment" selected>Full Payment</option>
+                                    <option value="Advance Payment">Advance Payment</option>
+                                    <option value="No Payment">No Payment</option>
                                 </select>
                                 <div *ngIf="submitted && f.Status.errors" class="invalid-feedback">
                                     <div *ngIf="f.Status.errors.required">Status is required</div>

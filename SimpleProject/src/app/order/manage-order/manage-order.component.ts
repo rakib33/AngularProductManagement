@@ -181,95 +181,240 @@ getInvoiceReportData(invoice:Invoice) {
   let strClientContact = 'Client Contact :' +  invoice.Phone;   
   let strSupplierName = 'Supplier Contact :' +  invoice.Customer_Id;     
    return {
+    header:{
+      text:'www.fb.com/kini24.com.bd',
+      alignment: 'left',
+      margin: [5, 2, 0, 0]
+    },
+    footer: function(currentPage, pageCount) { return currentPage.toString() + ' of ' + pageCount; },
      content: [
        {
-         text: "Order Invoice - KiniCom",
+         text: "Order Invoice",
          bold: true,
-         fontSize: 14,
+         fontSize: 13,
          alignment: 'center',
-         margin: [0, 0, 0, 2]
+         margin: [0, 0, 0, 5]
        },
-       {
-         text: "Invoice No: "+ invoice.InvoiceNo,
-         style: 'contentText',
-         alignment: 'center'
-       },
-       {
-        text: strOrderDate,
-        style: 'contentText',
-        alignment: 'center'
-       },
-       {
-        text: strClientName,
-        style: 'contentText',
-        alignment: 'center'
-       },
-       {
-        text: strClientContact,
-        style: 'contentText',
-        alignment: 'center'
-       },
-       {
-        text: strSupplierName,
-        style: 'contentText',
-        alignment: 'center'
-       },        
+      {
+        columns: [         
+          {
+            width: '43%',
+            text: 'www.kini24.com',
+            alignment: 'left'
+          },
+          {          
+            width: '*',
+            text:  "Invoice No:"+ invoice.InvoiceNo,
+            style: 'contentText',
+            alignment: 'left'
+          }
+        ],       
+      },
+      {
+        columns: [         
+          {
+            // % width
+            width: '43%',
+            text: '213/7A West Agargaon',
+            alignment: 'left'
+          },
+          {          
+            width: '*',
+            text: strOrderDate,
+            style: 'contentText',
+            alignment: 'left'
+          }
+        ],       
+      },
+
+      {
+        columns: [         
+          {
+            // % width
+            width: '43%',
+            text: 'Shapla Housing.Dhaka-1207',
+            alignment: 'left'
+          },
+          {          
+            width: '*',
+            text: strClientName,
+            style: 'contentText',
+            alignment: 'left'
+          }
+        ],       
+      },
       
+      {
+        columns: [         
+          {
+            // % width
+            width: '43%',
+            text: '01704387973',
+            alignment: 'left'
+          },
+          {          
+            width: '*',
+            text: strClientContact,
+            style: 'contentText',    
+            alignment: 'left'
+          }
+        ],       
+      },
+      
+      {
+        columns: [         
+          {
+            // % width
+            width: '43%',
+            text: '',
+            alignment: 'left'
+          },
+          {          
+            width: '*',
+            text: strSupplierName,
+            style: 'contentText',
+            alignment: 'left' 
+          }
+        ],       
+      },
+       
+      {
+        columns: [         
+          {
+            // % width
+            width: '43%',
+            text: '',
+            alignment: 'left'
+          },
+          {          
+            width: '*',
+            text: '',
+            style: 'contentText',
+            alignment: 'left' 
+          }
+        ],       
+      },
+       
       this.getPurchasesObject(invoice.Purchases),
       {
         text: '',
         margin: [0, 0, 0, 2]
       }, 
+    
       {
-         columns: [
-           [{
-             text: "Sub Total:" + invoice.Total,
-             style: 'contentText'
-           },
-           {
-             text: "Vat:" + invoice.OtherExpense,
-             style: 'contentText'
-           },
-           {
-             text: "Discount:" + invoice.OtherExpense,
-             style: 'contentText'
-           },
-           {
-             text: "Total Amount:" + invoice.Payable,
-             style: 'contentText',              
-           },
-           {
-            text: "Paid Amount:" + invoice.Paid,
-            style: 'contentText'
-           },
-           {
-            text: "Due Amount:" + invoice.Due,
-            style: 'contentText'
-           },
-          //  {
-          //    text: "Payement Type  :"+ invoice.PaymentType,
-          //    style: 'contentText'
-          //  },
-          //  {
-          //   text: "Status          :"+ invoice.Status,
-          //   style: 'contentText'
-          // },
-         
-          // {
-          //   text: "Description:"+ invoice.Description,
-          //   style: 'contentText'
-          // },
-          //  {
-          //    text: 'GitHub: ',
-          //    link: 'asdg jsdgja',
-          //    color: 'blue',
-          //  }
-           ],
-           [
-             // Document definition for Profile pic
-           ]
-         ]
-       }],
+        columns: [     
+          {width: '70%',
+          text: invoice.Description,
+          //rowSpan: 6,
+          alignment: 'left',
+          margin: [0, 0, 15, 0],
+          
+        },    
+          
+          {
+            width: '15%',
+            text: 'Sub Total:',
+            alignment: 'left'
+          },
+          {          
+            width: '*',
+            text: invoice.Total,
+            style: 'contentText',    
+            alignment: 'right',
+            margin: [0, 0, 0, 2]
+          }
+        ],       
+      },
+      {
+        columns: [     
+          {width: '70%',text: ''},  
+          
+          {
+            width: '15%',
+            text: 'Vat:',
+            alignment: 'left'
+          },
+          {          
+            width: '*',
+            text: invoice.OtherExpense,
+            style: 'contentText',    
+            alignment: 'right',
+            margin: [0, 0, 0, 2]
+          }
+        ],       
+      },
+      {
+        columns: [     
+          {width: '70%',text: ''},  
+          
+          {
+            width: '15%',
+            text: 'Discount:',
+            alignment: 'left'
+          },
+          {          
+            width: '*',
+            text: invoice.Discount,
+            style: 'contentText',    
+            alignment: 'right',
+            margin: [0, 0, 0, 2]
+          }
+        ],       
+      },
+      {
+        columns: [     
+          {width: '70%',text: ''},  
+          {
+            width: '15%',
+            text: 'Total Amount:',
+            alignment: 'left'
+          },
+          {          
+            width: '*',
+            text:  invoice.Payable,
+            style: 'contentText',    
+            alignment: 'right',
+            margin: [0, 0, 0, 2]
+          }
+        ],       
+      },
+      {
+        columns: [     
+          {width: '70%',text: ''},  
+          
+          {
+            width: '15%',
+            text: 'Paid Amount:',
+            alignment: 'left'
+          },
+          {          
+            width: '*',
+            text:  invoice.Paid,
+            style: 'contentText',    
+            alignment: 'right',
+            margin: [0, 0, 0, 2]
+          }
+        ],       
+      },
+      {
+        columns: [     
+          {width: '70%',text: ''},          
+          {
+            width: '15%',
+            text: 'Due Amount:',
+            alignment: 'left'
+          },
+          {          
+            width: '*',
+            text:  invoice.Due,
+            style: 'contentText',    
+            alignment: 'right',
+            margin: [0, 0, 0, 2]
+          }
+        ],       
+      },
+            
+      ],
        info: {
         title: 'Order Invoice',
         author: 'KiniCom',
@@ -294,6 +439,9 @@ getInvoiceReportData(invoice:Invoice) {
  getPurchasesObject(Purchases: Purchase[]) {
   return {
     table: {
+      // headers are automatically repeated if the table spans over multiple pages
+        // you can declare how many rows should be treated as headers
+      headerRows: 1,
       widths: [250, '*', '*', '*'],
       body: [
         [{

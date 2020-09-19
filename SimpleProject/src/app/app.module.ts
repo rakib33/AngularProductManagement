@@ -22,6 +22,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { DatePipe } from '@angular/common';
 import { ManageOrderComponent } from './order/manage-order/manage-order.component';
 import { NgHttpLoaderModule } from 'ng-http-loader';
+// for refresh
+import { HashLocationStrategy,LocationStrategy } from '@angular/common';
 //https://www.freakyjolly.com/angular-http-spinner-loader-using-ng-http-loader-tutorial-by-example/#.X1Y8JHkzbIU
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -55,7 +57,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     NgHttpLoaderModule.forRoot(),
     //NgbModule // problem blank page display
   ],
-  providers: [DatePipe],
+  providers: [DatePipe,{provide:LocationStrategy,useClass:HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
